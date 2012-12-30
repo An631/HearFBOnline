@@ -66,7 +66,7 @@ if ($user_id) {
   $photos = idx($facebook->api('/me/photos?limit=16'), 'data', array());
 
   //get all the messages I've got
-  $messages=idx($facebook)->api('/me/inbox','data',array());
+  // $messages=idx($facebook)->api('/me/inbox','data',array());
 
   // Here is an example of a FQL call that fetches all of your friends that are
   // using this app
