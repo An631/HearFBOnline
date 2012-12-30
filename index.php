@@ -352,7 +352,7 @@ $app_name = idx($app_info, 'name', '');
       </div>
     </section>
 
-    <?php 
+ <!--    <?php 
       foreach($messages as $message)
       {
     ?>
@@ -365,7 +365,7 @@ $app_name = idx($app_info, 'name', '');
 
     <?php
       }//foreach message
-    ?>
+    ?> -->
 
     <?php
       }//if there is a user_id
