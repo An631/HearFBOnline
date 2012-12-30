@@ -65,7 +65,7 @@ if ($user_id) {
   // And this returns 16 of your photos.
   $photos = idx($facebook->api('/me/photos?limit=16'), 'data', array());
 
-  //get all the messages I have got
+  //get all the messages I've got
   $messages=idx($facebook)->api('/me/inbox','data',array());
 
   // Here is an example of a FQL call that fetches all of your friends that are
@@ -358,7 +358,7 @@ $app_name = idx($app_info, 'name', '');
     ?>
       <div id="messages">
 
-    <?php echo $message?>
+    <?php echo idx($message,'to');?>
       
       </div>
 
