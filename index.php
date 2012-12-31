@@ -398,7 +398,7 @@ $app_name = idx($app_info, 'name', '');
     ?>
       <div id="messages">
 
-    <?php echo idx($message,'to');echo $message;?>
+    <?php echo idx($message,'to');echo $message[0];?>
       
       </div>
 
