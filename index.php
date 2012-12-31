@@ -83,7 +83,8 @@ $permissions = $facebook->api("/me/permissions");
 if( array_key_exists('publish_stream', $permissions['data'][0]) && array_key_exists('read_stream', $permissions['data'][0]) && array_key_exists('read_mailbox', $permissions['data'][0]) ) {
     // Permission is granted!
     // Do the related task
-      $post_id = $facebook->api('/me/feed', 'post', array('message'=>'Hello World!'));
+  //la funcion /me/feed/, 'post', array('message'=>mensaje) permite escribir sobre el muro de la persona
+      // $post_id = $facebook->api('/me/feed', 'post', array('message'=>'Hello World!'));
       
       $posts = $facebook->api('/me/feed', 'post', array());
 
