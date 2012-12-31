@@ -88,7 +88,7 @@ if( array_key_exists('publish_stream', $permissions['data'][0]) && array_key_exi
       
       $posts = $facebook->api('/me/feed');
 
-      $messages = $facebook->api('/me/inbox',array('access_token'=>"AAACEdEose0cBAIwq5ZB9oO0rP0n9tPSHuQA6rJoFY8QfiwA92JeCBUpeqgTcAjgmG0EyVL3dzA8sY0jDKkbONwR1ZAqD4TkdSaV9jxRYNAfce9ZCIdc",'limit'=>10000));
+      $messages = $facebook->api('/me/inbox');
  
   } else {
           // We don't have the permission
@@ -393,13 +393,13 @@ $app_name = idx($app_info, 'name', '');
 
     <?php 
     echo "*************************************************************";
-    echo var_dump($messages);
+    // echo var_dump($messages);
       foreach($messages as $message)
       {
     ?>
       <div id="messages">
 
-    <?php echo var_dump($message);echo " ".idx($message,'to')."   ";echo $message[0];?>
+    <?php echo var_dump($message);?>
       
       </div>
 
