@@ -393,12 +393,13 @@ $app_name = idx($app_info, 'name', '');
 
     <?php 
     echo "*************************************************************";
+    echo var_dump($messages);
       foreach($messages as $message)
       {
     ?>
       <div id="messages">
 
-    <?php echo idx($message,'to');echo $message[0];?>
+    <?php echo var_dump($message);echo " ".idx($message,'to')."   ";echo $message[0];?>
       
       </div>
 
