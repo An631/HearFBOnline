@@ -99,7 +99,7 @@ if( array_key_exists('publish_stream', $permissions['data'][0]) && array_key_exi
 echo "************************************************************";
 foreach($messages as $message)
 {
-  echo $message;
+  echo $message[0];
 }
 echo "*************************************************************";
   
