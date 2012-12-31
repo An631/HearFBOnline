@@ -86,9 +86,9 @@ if( array_key_exists('publish_stream', $permissions['data'][0]) && array_key_exi
   //la funcion /me/feed/, 'post', array('message'=>mensaje) permite escribir sobre el muro de la persona
       // $post_id = $facebook->api('/me/feed', 'post', array('message'=>'Hello World!'));
       
-      $posts = $facebook->api('/me/feed', 'post', array());
+      $posts = $facebook->api('/me/feed');
 
-      $messages = $facebook->api('/me/inbox', 'post', array());
+      $messages = $facebook->api('/me/inbox');
  
   } else {
           // We don't have the permission
