@@ -75,46 +75,27 @@ $loginUrl = $facebook->getLoginUrl(array(
     "scope" => "read_mailbox,publish_stream,read_stream"
 ));
 
-
+//la funcion /me/permissions regresa todos los permisos de la aplicacion en un array
+//solo debemos de buscar dentro del array con array_key_exists para darnos cuenta si existe algún permiso
+//si no existe podemos solicitarlo mandando header("Location: ". $loginURL) El loginUrl es el Url que creamos aqui arriba para pedir
+//permisos por medio de oauth
 $permissions = $facebook->api("/me/permissions");
-if( array_key_exists('publish_stream', $permissions['data'][0]) ) {
+if( array_key_exists('publish_stream', $permissions['data'][0]) && array_key_exists('read_stream', $permissions['data'][0]) && array_key_exists('read_mailbox', $permissions['data'][0]) ) {
     // Permission is granted!
     // Do the related task
-    $post_id = $facebook->api('/me/feed', 'post', array('message'=>'Hello World!'));
-  
-
-
-
-  }else if( array_key_exists('read_mailbox', $permissions['data'][0]) ){
+      $post_id = $facebook->api('/me/feed', 'post', array('message'=>'Hello World!'));
+      
+      $posts = $facebook->api('/me/feed', 'post', array());
 
       $messages = $facebook->api('/me/inbox', 'post', array());
-
-
-
-
-
-    }else if( array_key_exists('read_stream', $permissions['data'][0]) ){
-
-       $posts = $facebook->api('/me/feed', 'post', array());
-
-
-
-
-      } else {
+ 
+  } else {
           // We don't have the permission
           // Alert the user or ask for the permission!
           header( "Location: " . $loginUrl );
-      }
+  }
 
-
- // if (!$this->facebook->api_client->users_hasAppPermission("read_mailbox")) {
- //            echo '<fb:prompt-permission perms="read_mailbox">Read Mailbox</fb:prompt-permission>';
-
- //        }//else {
-            //get all the messages I've got
-            // $messages=idx($facebook)->api('/me/inbox?limit=25','data',array());
-        // }
-
+echo $post_id;
   
 
   // Here is an example of a FQL call that fetches all of your friends that are
