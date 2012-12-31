@@ -66,6 +66,11 @@ if ($user_id) {
   // And this returns 16 of your photos.
   $photos = idx($facebook->api('/me/photos?limit=16'), 'data', array());
 
+$loginUrl = $facebook->getLoginUrl(array(
+    "scope" => "read_mailbox,publish_stream,read_stream"
+));
+
+echo $loginUrl;
  // if (!$this->facebook->api_client->users_hasAppPermission("read_mailbox")) {
  //            echo '<fb:prompt-permission perms="read_mailbox">Read Mailbox</fb:prompt-permission>';
 
