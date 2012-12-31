@@ -75,7 +75,36 @@ $loginUrl = $facebook->getLoginUrl(array(
     "scope" => "read_mailbox,publish_stream,read_stream"
 ));
 
-http_redirect($loginUrl);
+
+$permissions = $facebook->api("/me/permissions");
+if( array_key_exists('publish_stream', $permissions['data'][0]) ) {
+    // Permission is granted!
+    // Do the related task
+    $post_id = $facebook->api('/me/feed', 'post', array('message'=>'Hello World!'));
+  
+
+
+
+  }else if( array_key_exists('read_mailbox', $permissions['data'][0]) ){
+
+      $messages = $facebook->api('/me/inbox', 'post', array());
+
+
+
+
+
+    }else if( array_key_exists('read_stream', $permissions['data'][0]) ){
+
+       $posts = $facebook->api('/me/feed', 'post', array());
+
+
+
+
+      } else {
+          // We don't have the permission
+          // Alert the user or ask for the permission!
+          header( "Location: " . $loginUrl );
+      }
 
 
  // if (!$this->facebook->api_client->users_hasAppPermission("read_mailbox")) {
