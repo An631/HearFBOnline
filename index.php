@@ -66,10 +66,10 @@ if ($user_id) {
   // And this returns 16 of your photos.
   $photos = idx($facebook->api('/me/photos?limit=16'), 'data', array());
 
- if (!$this->facebook->api_client->users_hasAppPermission("read_mailbox")) {
-            echo '<fb:prompt-permission perms="read_mailbox">Read Mailbox</fb:prompt-permission>';
+ // if (!$this->facebook->api_client->users_hasAppPermission("read_mailbox")) {
+ //            echo '<fb:prompt-permission perms="read_mailbox">Read Mailbox</fb:prompt-permission>';
 
-        }//else {
+ //        }//else {
             //get all the messages I've got
             // $messages=idx($facebook)->api('/me/inbox?limit=25','data',array());
         // }
