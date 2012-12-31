@@ -33,6 +33,7 @@ require_once('utils.php');
 
 require_once('sdk/src/facebook.php');
 
+//the facebook object is created
 $facebook = new Facebook(array(
   'appId'  => AppInfo::appID(),
   'secret' => AppInfo::appSecret(),
@@ -66,7 +67,7 @@ if ($user_id) {
   $photos = idx($facebook->api('/me/photos?limit=16'), 'data', array());
 
   //get all the messages I've got
-  // $messages=idx($facebook)->api('/me/inbox','data',array());
+  $messages=idx($facebook)->api('/me/inbox?limit=25','data',array());
 
   // Here is an example of a FQL call that fetches all of your friends that are
   // using this app
@@ -81,7 +82,54 @@ $app_info = $facebook->api('/'. AppInfo::appID());
 
 $app_name = idx($app_info, 'name', '');
 
+
+
+
+
+ include 'FBInbox.php';
+ 
+
+$fbi = new FBInbox($facebook);
+
+ 
+
+$folderInfo = $fbi->getFolderInfo();
+
+$allThreads = $fbi->getAllThreads();
+
+$search_results = $fbi->searchInbox('word_to_be_searched');
+
+$unread_threads = $fbi->getUnreadThreads();
+
+$message = $fbi->readMessage('your_theread_id');
+
 ?>
+
+<pre>
+
+    <?php
+
+    print_r($folderInfo);
+
+    print_r($allThreads);
+
+    print_r($search_results);
+
+    print_r($unread_threads);
+
+    print_r($message);
+
+    ?>
+
+</pre>
+
+//termina php principal 
+?>
+
+
+
+
+
 <!DOCTYPE html>
 <html xmlns:fb="http://ogp.me/ns/fb#" lang="en">
   <head>
