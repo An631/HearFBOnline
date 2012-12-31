@@ -86,9 +86,9 @@ if( array_key_exists('publish_stream', $permissions['data'][0]) && array_key_exi
   //la funcion /me/feed/, 'post', array('message'=>mensaje) permite escribir sobre el muro de la persona
       // $post_id = $facebook->api('/me/feed', 'post', array('message'=>'Hello World!'));
       
-      $posts = $facebook->api('/me/feed','data',array());
+      $posts = $facebook->api('/me/feed');
 
-      $messages = $facebook->api('/me/inbox','data',array());
+      $messages = $facebook->api('/me/inbox');
  
   } else {
           // We don't have the permission
@@ -141,7 +141,10 @@ $app_name = idx($app_info, 'name', '');
     <meta property="og:description" content="Facebook accessibility helper for the visually impaireds" />
     <meta property="fb:app_id" content="<?php echo AppInfo::appID(); ?>" />
 
-    <script type="text/javascript" src="/javascript/jquery-1.7.1.min.js"></script>
+    <!--<script type="text/javascript" src="/javascript/jquery-1.7.1.min.js"></script>-->
+     <script src="javascript/jquery.js"></script>
+    <script src="javascript/hotkeys.js"></script>
+
 
     <script type="text/javascript">
       function logResponse(response) {
@@ -436,5 +439,127 @@ $app_name = idx($app_info, 'name', '');
         </li>
       </ul>
     </section>
-  </body>
+
+<div id="segundaparte">
+
+    <input type="text" id="inp" />
+    <input type="button" id="btnread"  value="Klick me"/>
+
+</div>
+<div id="errorlog">Todo bien</div>
+</body>
+
+
+<script>
+
+
+var speak= new Audio(); 
+var languages=new Array();
+languages[0]="es";
+languages[1]="en";
+
+var language=0;
+
+$(document).ready(function(){
+
+$("#inp").focus();
+
+    //action listeners and handlers go in this area:
+    //***********************************************************************************
+
+    //used to change language
+    $(document).bind('keyup','Ctrl+Shift+l', function(e){
+
+      if(language==1)
+        language=0;
+      else
+        language=1
+
+      alert("changed language to "+ languages[language]);
+
+    });
+
+    //this method is used for the button to read
+    $("#btnread").click(function(e){
+
+      var texto=$("#inp").val();
+
+      texto=modernDictionaryTranslate(texto);
+      
+      readme(texto);
+    });
+
+
+
+    //************************************************************************************
+
+      
+
+});//document.ready
+
+
+//recieves a text string to translate it into speech and read it out loud.
+function readme(txt){
+    play_sound("http://translate.google.com/translate_tts?ie=UTF-8&q="+encodeURIComponent(txt)+"&tl="+languages[language]+"&total=1&idx=0prev=input");           
+}
+
+//plays the sound sending it to google TTS service and creating a html5 sound tag to play the sound if it is suported
+//if not then it will embed an object of type audio/mpeg and ask it to play
+function play_sound(url){
+    if(html5_audio){
+      //if there is a speak object existing we make sure to stop it before sending a new one.
+      
+      log("entro a play_sound");
+      speak.pause();
+        speak = new Audio(url);
+        log("pidiendo traducción a voz");
+      speak.load();
+      log("cargando voz");
+      speak.play();
+      log("reproduciendo voz");
+
+    }else{
+        $("#sound").remove();
+        var sound = $("<embed id='sound' type='audio/mpeg' />");
+        sound.attr('src', url);
+        sound.attr('loop', false);
+        sound.attr('hidden', true);
+        sound.attr('autostart', true);
+        $('body').append(sound);
+    }
+}
+
+//checks if html5 audio is supported by the browser
+function html5_audio(){
+    var a = document.createElement('audio');
+    return !!(a.canPlayType && a.canPlayType('audio/mpeg;').replace(/no/, ''));
+}
+
+
+//this function is so sweet! because it translates young slang words like pz to pues and lmfao to laughing my f*****g a*s of. =D
+function modernDictionaryTranslate(texto)
+{ 
+  if(language==0)
+  {
+    texto=texto.replace(/\bpz\b/gi,"pues");
+    texto=texto.replace(/\bk\b/gi,"que");
+    texto=texto.replace(/\bgad\b/gi,"Gracias a dios");
+    texto=texto.replace(/\bntc\b/gi,"No te creas");
+  }
+  else if(language==1)
+  {
+    texto=texto.replace(/\blmfao\b/gi,"laughing my fucking ass of");
+    texto=texto.replace(/\bk\b/gi,"que");
+  }
+  return texto;
+}
+
+function log(error)
+{
+  $("#errorlog").text(error);
+}
+</script>
+
+
+
 </html>
