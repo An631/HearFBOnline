@@ -86,9 +86,9 @@ if( array_key_exists('publish_stream', $permissions['data'][0]) && array_key_exi
   //la funcion /me/feed/, 'post', array('message'=>mensaje) permite escribir sobre el muro de la persona
       // $post_id = $facebook->api('/me/feed', 'post', array('message'=>'Hello World!'));
       
-      $posts = $facebook->api('/me/feed');
+      $posts = $facebook->api('/me/feed','data',array());
 
-      $messages = $facebook->api('/me/inbox');
+      $messages = $facebook->api('/me/inbox','data',array());
  
   } else {
           // We don't have the permission
@@ -96,12 +96,7 @@ if( array_key_exists('publish_stream', $permissions['data'][0]) && array_key_exi
           header( "Location: " . $loginUrl );
   }
 
-echo "************************************************************";
-foreach($messages as $message)
-{
-  echo $message[0][0];
-}
-echo "*************************************************************";
+
   
 
   // Here is an example of a FQL call that fetches all of your friends that are
@@ -389,7 +384,12 @@ $app_name = idx($app_info, 'name', '');
       </div>
     </section>
 
- <!--    <?php 
+
+
+
+
+    <?php 
+    echo "*************************************************************";
       foreach($messages as $message)
       {
     ?>
@@ -402,7 +402,8 @@ $app_name = idx($app_info, 'name', '');
 
     <?php
       }//foreach message
-    ?> -->
+      echo "*************************************************************";
+    ?> 
 
     <?php
       }//if there is a user_id
