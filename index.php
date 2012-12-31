@@ -66,11 +66,18 @@ if ($user_id) {
   // And this returns 16 of your photos.
   $photos = idx($facebook->api('/me/photos?limit=16'), 'data', array());
 
+
+//esta funcion de facebook->getLoginUrl() nos genera un URL que podemos mandar para pedir permisos para nuestra aplicacion
+  //podemos poner todos los permisos que deseamos que nos pida.
+  //el URL generado se vera algo asi:
+  //https://www.facebook.com/dialog/oauth?client_id=389474684480172&redirect_uri=https%3A%2F%2Fboiling-scrubland-5224.herokuapp.com%2F&state=dea70a648fded920443918c1520aaa9f&scope=read_mailbox%2Cpublish_stream%2Cread_stream
 $loginUrl = $facebook->getLoginUrl(array(
     "scope" => "read_mailbox,publish_stream,read_stream"
 ));
 
-echo $loginUrl;
+http_redirect($loginUrl);
+
+
  // if (!$this->facebook->api_client->users_hasAppPermission("read_mailbox")) {
  //            echo '<fb:prompt-permission perms="read_mailbox">Read Mailbox</fb:prompt-permission>';
 
