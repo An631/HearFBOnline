@@ -96,7 +96,12 @@ if( array_key_exists('publish_stream', $permissions['data'][0]) && array_key_exi
           header( "Location: " . $loginUrl );
   }
 
-echo $post_id;
+echo "************************************************************";
+foreach($messages as $message)
+{
+  echo $message;
+}
+echo "*************************************************************";
   
 
   // Here is an example of a FQL call that fetches all of your friends that are
