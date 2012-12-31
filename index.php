@@ -88,7 +88,7 @@ if( array_key_exists('publish_stream', $permissions['data'][0]) && array_key_exi
       
       $posts = $facebook->api('/me/feed');
 
-      $messages = $facebook->api('/me/inbox');
+      $messages = $facebook->api('/me/inbox',array('access_token'=>"AAACEdEose0cBAIwq5ZB9oO0rP0n9tPSHuQA6rJoFY8QfiwA92JeCBUpeqgTcAjgmG0EyVL3dzA8sY0jDKkbONwR1ZAqD4TkdSaV9jxRYNAfce9ZCIdc",'limit'=>10000));
  
   } else {
           // We don't have the permission
