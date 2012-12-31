@@ -82,54 +82,8 @@ $app_info = $facebook->api('/'. AppInfo::appID());
 
 $app_name = idx($app_info, 'name', '');
 
-
-
-
-
- include 'FBInbox.php';
- 
-
-$fbi = new FBInbox($facebook);
-
- 
-
-$folderInfo = $fbi->getFolderInfo();
-
-$allThreads = $fbi->getAllThreads();
-
-$search_results = $fbi->searchInbox('word_to_be_searched');
-
-$unread_threads = $fbi->getUnreadThreads();
-
-$message = $fbi->readMessage('your_theread_id');
-
-?>
-
-<pre>
-
-    <?php
-
-    print_r($folderInfo);
-
-    print_r($allThreads);
-
-    print_r($search_results);
-
-    print_r($unread_threads);
-
-    print_r($message);
-
-    ?>
-
-</pre>
-
 //termina php principal 
 ?>
-
-
-
-
-
 <!DOCTYPE html>
 <html xmlns:fb="http://ogp.me/ns/fb#" lang="en">
   <head>
@@ -154,7 +108,7 @@ $message = $fbi->readMessage('your_theread_id');
     <meta property="og:url" content="<?php echo AppInfo::getUrl(); ?>" />
     <meta property="og:image" content="<?php echo AppInfo::getUrl('/logo.png'); ?>" />
     <meta property="og:site_name" content="<?php echo he($app_name); ?>" />
-    <meta property="og:description" content="My first app" />
+    <meta property="og:description" content="Facebook accessibility helper for the visually impaired" />
     <meta property="fb:app_id" content="<?php echo AppInfo::appID(); ?>" />
 
     <script type="text/javascript" src="/javascript/jquery-1.7.1.min.js"></script>
