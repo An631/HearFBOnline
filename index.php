@@ -394,12 +394,25 @@ $app_name = idx($app_info, 'name', '');
     <?php 
     echo "*************************************************************";
     // echo var_dump($messages);
+echo "chequeo de key to dentro de messages";
+
+
+if(array_key_exists("to",$messages))
+  echo $messages["to"];
+else
+  echo array_key_exists("to",$messages);
+
+echo "termina chequeo de key dentor de messages";
       foreach($messages as $message)
       {
     ?>
       <div id="messages">
 
-    <?php $participants=idx($message,"data");
+    <?php 
+
+    
+    $participants=idx($message,"to");
+
     echo var_dump($participants);
 
         foreach($participants as $participantUser)
