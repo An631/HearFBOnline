@@ -400,7 +400,8 @@ $app_name = idx($app_info, 'name', '');
       <div id="messages">
 
     <?php $participants=idx($message,"to");
-
+    echo var_dump($participants);
+    
         foreach($participants as $participantUser)
         {
           ?>
