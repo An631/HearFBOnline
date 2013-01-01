@@ -466,7 +466,7 @@ $("#txtNuevoMensaje").focus();
       else
         {
           language=1;
-          read("Lenguage changed to english");
+          read("Language changed to english");
         }
 
       
@@ -474,13 +474,13 @@ $("#txtNuevoMensaje").focus();
     });
 
     //this method is used for the button to read
-    $("#btnread").click(function(e){
+    $("#btnSendNuevoMensaje").click(function(e){
 
-      var texto=$("#inp").val();
+      var texto=$("#txtNuevoMensaje").val();
 
       texto=modernDictionaryTranslate(texto);
       
-      readme(texto);
+      read(texto);
     });
 
 
