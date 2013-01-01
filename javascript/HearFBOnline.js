@@ -11,8 +11,10 @@ var notyet=0;
 
 $(document).ready(function(){
 
-$("#txtNuevoMensaje").focus();
 
+$("#txtNuevoMensaje").focus();
+$(".actualThread :last-child").addClass("selectedMsg");
+scrollMessages();
     //action listeners and handlers go in this area:
     //***********************************************************************************
 
