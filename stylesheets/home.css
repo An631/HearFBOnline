@@ -1,0 +1,59 @@
+
+/************************************************position and size classes*******************************************************/
+#wrapperMain
+{
+	width:980px;
+	height:650px;
+	margin:0px auto 0px auto;
+}
+
+#HearFBOnlineTitle
+{
+	width:980px;
+	height:50px;
+	margin-top:0px;
+}
+
+
+#participantUser
+{
+	height:100px;
+}
+
+
+#messages
+{
+	
+	height:500px;
+	overflow-y:scroll;
+	position:relative;
+
+}
+
+
+
+.message
+{
+	float:left;
+	margin: 5px auto 5px auto;
+	width:950px;
+}
+.selectedMsg	
+{
+	font-size:32px;
+}
+
+
+/************************************************color classes*******************************************************/
+
+.grayborder_whitefont
+{
+	border:gray 1px solid;
+	color:white;
+}
+
+.blackBG_whitefont
+{
+	background-color: black;
+	color:white;
+}

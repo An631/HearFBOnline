@@ -247,11 +247,18 @@ $app_name = idx($app_info, 'name', '');
     </script>
 
     <header class="clearfix">
-      <?php if (isset($basic)) { ?>
-      <p id="picture" style="background-image: url(https://graph.facebook.com/<?php echo he($user_id); ?>/picture?type=normal)"></p>
 
+
+
+
+      <?php if (isset($basic)) { ?>
+
+
+
+
+    <!--   <p id="picture" style="background-image: url(https://graph.facebook.com/<?php echo he($user_id); ?>/picture?type=normal)"></p>
       <div>
-        <h1>Bienvenido, <strong><?php echo he(idx($basic, 'name')); ?> a HearFBOnline la unica conexión a facebook asistida con voz para personas con debilidad visual.</strong></h1>
+        <h1>Bienven -->ido, <strong><?php echo he(idx($basic, 'name')); ?> a HearFBOnline la unica conexión a facebook asistida con voz para personas con debilidad visual.</strong></h1>
       <!--   <p class="tagline">
           This is your app
           <a href="<?php echo he(idx($app_info, 'link'));?>" target="_top"><?php echo he($app_name); ?></a>
@@ -277,13 +284,32 @@ $app_name = idx($app_info, 'name', '');
             </li>
           </ul>
         </div> -->
-      </div>
+      </div><!--bienvenido container-->
+
+
+
+
+
+
+
+
+
       <?php } else { ?>
+
+
+
       <div>
         <h1>Bienvenido</h1>
         <div class="fb-login-button" data-scope="user_likes,user_photos"></div>
-      </div>
+      </div><!--loginbutton container-->
+
+
+
       <?php } ?>
+
+
+
+
     </header>
 
    <!--  <section id="get-started">
@@ -389,7 +415,8 @@ $app_name = idx($app_info, 'name', '');
 
 
 
-
+<div id="messages"  class="grayborder_whitefont actualThread">
+   
 
     <?php 
     
@@ -411,11 +438,20 @@ $app_name = idx($app_info, 'name', '');
     }
     
     foreach($msgs as $msg)
-    {
-      $msgFrom=idx($msg,"from");
-      echo "From: ".idx($msgFrom,"name")."</br>";
-      echo "Message: ".idx($msg,"message")."</br>";
-    }
+    {?>
+   
+       <div class="message">
+          <div class="msgHour"><?php echo idx($msg,"created_time")?></div>
+          <span class="from"><?php echo idx($msgFrom,"name");?> </span>
+          <span class="msgText"><?php echo idx($msg,"message")?> </span>
+
+        </div>
+
+
+   
+
+
+   <?php }
 
     ?> 
 
@@ -425,134 +461,35 @@ $app_name = idx($app_info, 'name', '');
 
   
 
-<div id="containerNuevoMensaje">
 
-    <input type="text" id="txtNuevoMensaje" />
-    <input type="button" id="btnSendNuevoMensaje"  value="send"/>
+     
 
-</div>
-<div id="errorlog">Todo bien</div>
+
+        
+    </div><!--messages-->
+
+      <div id="containerNuevoMensaje">
+
+          <input type="text" id="txtNuevoMensaje" />
+          <input type="button" id="btnSendNuevoMensaje"  value="send"/>
+
+      </div><!--containerNuevoMensaje-->
+
+  </div><!--wrapperMain-->
+
 </body>
 
 
 
 
 
-<script>
-//script para realizar las lecturas de los mensajes
-
-var speak= new Audio(); 
-var languages=new Array();
-languages[0]="es";
-languages[1]="en";
-
-var language=0;
-
-$(document).ready(function(){
-
-$("#txtNuevoMensaje").focus();
-
-    //action listeners and handlers go in this area:
-    //***********************************************************************************
-
-    //used to change language
-    $(document).bind('keyup','Ctrl+Shift+l', function(e){
-
-      if(language==1)
-        {
-          language=0;
-          read("Lenguaje cambiado a español");
-        }
-      else
-        {
-          language=1;
-          read("Language changed to english");
-        }
-
-      
-
-    });
-
-    //this method is used for the button to read
-    $("#btnSendNuevoMensaje").click(function(e){
-
-      var texto=$("#txtNuevoMensaje").val();
-
-      texto=modernDictionaryTranslate(texto);
-      
-      read(texto);
-    });
+<script src="javascript/HearFBOnline.js" type="text/javascript"></script>
 
 
 
-    //************************************************************************************
-
-      
-
-});//document.ready
 
 
-//recieves a text string to translate it into speech and read it out loud.
-function read(txt){
-    play_sound("http://translate.google.com/translate_tts?ie=UTF-8&q="+encodeURIComponent(txt)+"&tl="+languages[language]+"&total=1&idx=0prev=input");           
-}
 
-//plays the sound sending it to google TTS service and creating a html5 sound tag to play the sound if it is suported
-//if not then it will embed an object of type audio/mpeg and ask it to play
-function play_sound(url){
-    if(html5_audio){
-      //if there is a speak object existing we make sure to stop it before sending a new one.
-      
-      log("entro a play_sound");
-      speak.pause();
-        speak = new Audio(url);
-        log("pidiendo traducción a voz");
-      speak.load();
-      log("cargando voz");
-      speak.play();
-      log("reproduciendo voz");
-
-    }else{
-        $("#sound").remove();
-        var sound = $("<embed id='sound' type='audio/mpeg' />");
-        sound.attr('src', url);
-        sound.attr('loop', false);
-        sound.attr('hidden', true);
-        sound.attr('autostart', true);
-        $('body').append(sound);
-    }
-}
-
-//checks if html5 audio is supported by the browser
-function html5_audio(){
-    var a = document.createElement('audio');
-    return !!(a.canPlayType && a.canPlayType('audio/mpeg;').replace(/no/, ''));
-}
-
-
-//this function is so sweet! because it translates young slang words like pz to pues and lmfao to laughing my f*****g a*s of. =D
-function modernDictionaryTranslate(texto)
-{ 
-  if(language==0)
-  {
-    texto=texto.replace(/\bpz\b/gi,"pues");
-    texto=texto.replace(/\bk\b/gi,"que");
-    texto=texto.replace(/\bgad\b/gi,"Gracias a dios");
-    texto=texto.replace(/\bntc\b/gi,"No te creas");
-  }
-  else if(language==1)
-  {
-    texto=texto.replace(/\blmfao\b/gi,"laughing my fucking ass of");
-    texto=texto.replace(/\bk\b/gi,"que");
-  }
-  return texto;
-}
-
-function log(error)
-{
-  $("#errorlog").text(error);
-}
-</script>
 
 
 
