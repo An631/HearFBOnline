@@ -433,10 +433,10 @@ $app_name = idx($app_info, 'name', '');
 
     $users=idx($toUsers,"data");
 
-    foreach($users as $user)
-    {
-      echo "Participants: ".idx($user,"name")."</br>";
-    }
+    // foreach($users as $user)
+    // {
+    //   echo "Participants: ".idx($user,"name")."</br>";
+    // }
     
     foreach($msgs as $msg)
     {?>
