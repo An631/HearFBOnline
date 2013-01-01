@@ -393,7 +393,8 @@ $app_name = idx($app_info, 'name', '');
 
     <?php 
     
-     echo var_dump(idx($messages,"data"));
+    $messages=idx($messages,"data");
+     echo var_dump(idx($messages,"data")[0]);
 
     ?> 
 
