@@ -13,7 +13,7 @@ $(document).ready(function(){
 
 
 $("#txtNuevoMensaje").focus();
-$(".actualThread :last-child").addClass("selectedMsg");
+$(".actualThread .message:last-child").addClass("selectedMsg");
 scrollMessages();
     //action listeners and handlers go in this area:
     //***********************************************************************************
