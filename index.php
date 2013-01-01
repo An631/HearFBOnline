@@ -252,7 +252,7 @@ $app_name = idx($app_info, 'name', '');
 
       <div>
         <h1>Welcome, <strong><?php echo he(idx($basic, 'name')); ?></strong></h1>
-        <p class="tagline">
+      <!--   <p class="tagline">
           This is your app
           <a href="<?php echo he(idx($app_info, 'link'));?>" target="_top"><?php echo he($app_name); ?></a>
         </p>
@@ -276,7 +276,7 @@ $app_name = idx($app_info, 'name', '');
               </a>
             </li>
           </ul>
-        </div>
+        </div> -->
       </div>
       <?php } else { ?>
       <div>
@@ -286,10 +286,10 @@ $app_name = idx($app_info, 'name', '');
       <?php } ?>
     </header>
 
-    <section id="get-started">
+   <!--  <section id="get-started">
       <p>Hi I am working hard to please your likes with facebook</p>
       <a href="https://devcenter.heroku.com/articles/facebook" target="_top" class="button">Learn How to Edit This App</a>
-    </section>
+    </section> -->
 
     <?php
       if ($user_id) {
@@ -392,55 +392,16 @@ $app_name = idx($app_info, 'name', '');
 
 
     <?php 
-    echo "*************************************************************";
-     echo var_dump($messages);
-echo "chequeo de key to dentro de messages";
-
-
-if(array_key_exists("to",$messages))
-  echo $messages["data"];
-else
-  echo "else".array_key_exists("to",$messages);
-
-echo "termina chequeo de key dentro de messages";
-      foreach($messages as $message)
-      {
-    ?>
-      <div id="messages">
-
-    <?php 
-
     
-    $participants=idx($message,"to");
+     echo var_dump(idx($messages,"data"));
 
-    echo var_dump($participants);
-
-        foreach($participants as $participantUser)
-        {
-          ?>
-          <div id="participante">
-            <?php
-            //echo var_dump($participantUser);
-            ?>
-          </div>
-          <?php
-        }
-
-    ?>
-      
-      </div>
-
-
-    <?php
-      }//foreach message
-      echo "*************************************************************";
     ?> 
 
     <?php
       }//if there is a user_id
     ?>
 
-    <section id="guides" class="clearfix">
+    <!-- <section id="guides" class="clearfix">
       <h1>Learn More About Heroku &amp; Facebook Apps</h1>
       <ul>
         <li>
@@ -466,7 +427,7 @@ echo "termina chequeo de key dentro de messages";
           <p>Let users find and connect to their friends in mobile apps and games.</p>
         </li>
       </ul>
-    </section>
+    </section> -->
 
 <div id="segundaparte">
 
