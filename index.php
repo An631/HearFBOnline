@@ -406,7 +406,7 @@ $app_name = idx($app_info, 'name', '');
           ?>
           <div id="participante">
             <?php
-            echo he(idx($participantUser,"name"));
+            echo var_dump($participantUser);
             ?>
           </div>
           <?php
