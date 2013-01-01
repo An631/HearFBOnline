@@ -210,7 +210,7 @@ $app_name = idx($app_info, 'name', '');
       </script>
     <![endif]-->
   </head>
-  <body>
+  <body class="blackBG_whitefont">
     <div id="fb-root"></div>
     <script type="text/javascript">
       window.fbAsyncInit = function() {
@@ -249,7 +249,7 @@ $app_name = idx($app_info, 'name', '');
     <header class="clearfix">
 
 
-
+<div id="wrapperMain">
 
       <?php if (isset($basic)) { ?>
 
@@ -414,7 +414,6 @@ $app_name = idx($app_info, 'name', '');
     </section> -->
 
 
-
 <div id="messages"  class="grayborder_whitefont actualThread">
    
 
@@ -466,7 +465,7 @@ $app_name = idx($app_info, 'name', '');
 
 
         
-    </div><!--messages-->
+</div><!--messages-->
 
       <div id="containerNuevoMensaje">
 
@@ -475,7 +474,7 @@ $app_name = idx($app_info, 'name', '');
 
       </div><!--containerNuevoMensaje-->
 
-  </div><!--wrapperMain-->
+</div><!--wrapperMain-->
 
 </body>
 
