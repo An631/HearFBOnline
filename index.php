@@ -406,7 +406,7 @@ $app_name = idx($app_info, 'name', '');
           ?>
           <div id="participante">
             <?php
-            echo idx($participantUser,"name");
+            echo he(idx($participantUser,"name"));
             ?>
           </div>
           <?php
