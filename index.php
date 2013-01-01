@@ -123,7 +123,7 @@ $app_name = idx($app_info, 'name', '');
     <title><?php echo he($app_name); ?></title>
     <link rel="stylesheet" href="stylesheets/screen.css" media="Screen" type="text/css" />
     <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-width: 480px), only screen and (max-device-width: 480px)" type="text/css" />
-
+    <link rel="stylesheet" href="stylesheets/home.css" />
     <!--[if IEMobile]>
     <link rel="stylesheet" href="mobile.css" media="screen" type="text/css"  />
     <![endif]-->
@@ -210,7 +210,9 @@ $app_name = idx($app_info, 'name', '');
       </script>
     <![endif]-->
   </head>
+
   <body class="blackBG_whitefont">
+    
     <div id="fb-root"></div>
     <script type="text/javascript">
       window.fbAsyncInit = function() {
