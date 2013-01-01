@@ -322,7 +322,9 @@ $app_name = idx($app_info, 'name', '');
     // }
     
     foreach($msgs as $msg)
-    {?>
+    {
+      $msgFrom=idx($msg,"from");
+      ?>
    
         <div class="message">
          
