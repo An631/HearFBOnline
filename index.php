@@ -295,7 +295,7 @@ $app_name = idx($app_info, 'name', '');
       if ($user_id) {
     ?>
 
-    <section id="samples" class="clearfix">
+<!--     <section id="samples" class="clearfix">
       <h1>Examples of the Facebook Graph API</h1>
 
       <div class="list">
@@ -385,7 +385,7 @@ $app_name = idx($app_info, 'name', '');
           ?>
         </ul>
       </div>
-    </section>
+    </section> -->
 
 
 
