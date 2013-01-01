@@ -393,11 +393,12 @@ $app_name = idx($app_info, 'name', '');
 
     <?php 
     
-    $thread=idx($messages,"data");
+    $threads=idx($messages,"data");
      // echo var_dump(idx($messages,"data"));
 
-    echo var_dump($thread[0]);
+    $toUsers=idx("to",$threads[0]);
 
+    echo var_dump($toUsers);
     ?> 
 
     <?php
