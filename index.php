@@ -393,7 +393,7 @@ $app_name = idx($app_info, 'name', '');
 
     <?php 
     echo "*************************************************************";
-    // echo var_dump($messages);
+     echo var_dump($messages);
 echo "chequeo de key to dentro de messages";
 
 
