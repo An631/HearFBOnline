@@ -212,7 +212,7 @@ $app_name = idx($app_info, 'name', '');
   </head>
 
   <body class="blackBG_whitefont">
-    
+
     <div id="fb-root"></div>
     <script type="text/javascript">
       window.fbAsyncInit = function() {
@@ -258,34 +258,10 @@ $app_name = idx($app_info, 'name', '');
 
 
 
-    <!--   <p id="picture" style="background-image: url(https://graph.facebook.com/<?php echo he($user_id); ?>/picture?type=normal)"></p>
+  <p id="picture" style="background-image: url(https://graph.facebook.com/<?php echo he($user_id); ?>/picture?type=normal)"></p>
       <div>
-        <h1>Bienven -->ido, <strong><?php echo he(idx($basic, 'name')); ?> a HearFBOnline la unica conexión a facebook asistida con voz para personas con debilidad visual.</strong></h1>
-      <!--   <p class="tagline">
-          This is your app
-          <a href="<?php echo he(idx($app_info, 'link'));?>" target="_top"><?php echo he($app_name); ?></a>
-        </p>
-
-        <div id="share-app">
-          <p>Share your app:</p>
-          <ul>
-            <li>
-              <a href="#" class="facebook-button" id="postToWall" data-url="<?php echo AppInfo::getUrl(); ?>">
-                <span class="plus">Post to Wall</span>
-              </a>
-            </li>
-            <li>
-              <a href="#" class="facebook-button speech-bubble" id="sendToFriends" data-url="<?php echo AppInfo::getUrl(); ?>">
-                <span class="speech-bubble">Send Message</span>
-              </a>
-            </li>
-            <li>
-              <a href="#" class="facebook-button apprequests" id="sendRequest" data-message="Test this awesome app">
-                <span class="apprequests">Send Requests</span>
-              </a>
-            </li>
-          </ul>
-        </div> -->
+        <h1>Bienven ido, <strong><?php echo he(idx($basic, 'name')); ?> a HearFBOnline la unica conexión a facebook asistida con voz para personas con debilidad visual.</strong></h1>
+   
       </div><!--bienvenido container-->
 
 
@@ -314,106 +290,13 @@ $app_name = idx($app_info, 'name', '');
 
     </header>
 
-   <!--  <section id="get-started">
-      <p>Hi I am working hard to please your likes with facebook</p>
-      <a href="https://devcenter.heroku.com/articles/facebook" target="_top" class="button">Learn How to Edit This App</a>
-    </section> -->
+
 
     <?php
       if ($user_id) {
     ?>
 
-<!--     <section id="samples" class="clearfix">
-      <h1>Examples of the Facebook Graph API</h1>
 
-      <div class="list">
-        <h3>A few of your friends</h3>
-        <ul class="friends">
-          <?php
-            foreach ($friends as $friend) {
-              // Extract the pieces of info we need from the requests above
-              $id = idx($friend, 'id');
-              $name = idx($friend, 'name');
-          ?>
-          <li>
-            <a href="https://www.facebook.com/<?php echo he($id); ?>" target="_top">
-              <img src="https://graph.facebook.com/<?php echo he($id) ?>/picture?type=square" alt="<?php echo he($name); ?>">
-              <?php echo he($name); ?>
-            </a>
-          </li>
-          <?php
-            }
-          ?>
-        </ul>
-      </div>
-
-      <div class="list inline">
-        <h3>Recent photos</h3>
-        <ul class="photos">
-          <?php
-            $i = 0;
-            foreach ($photos as $photo) {
-              // Extract the pieces of info we need from the requests above
-              $id = idx($photo, 'id');
-              $picture = idx($photo, 'picture');
-              $link = idx($photo, 'link');
-
-              $class = ($i++ % 4 === 0) ? 'first-column' : '';
-          ?>
-          <li style="background-image: url(<?php echo he($picture); ?>);" class="<?php echo $class; ?>">
-            <a href="<?php echo he($link); ?>" target="_top"></a>
-          </li>
-          <?php
-            }
-          ?>
-        </ul>
-      </div>
-
-      <div class="list">
-        <h3>Things you like</h3>
-        <ul class="things">
-          <?php
-            foreach ($likes as $like) {
-              // Extract the pieces of info we need from the requests above
-              $id = idx($like, 'id');
-              $item = idx($like, 'name');
-
-              // This display's the object that the user liked as a link to
-              // that object's page.
-          ?>
-          <li>
-            <a href="https://www.facebook.com/<?php echo he($id); ?>" target="_top">
-              <img src="https://graph.facebook.com/<?php echo he($id) ?>/picture?type=square" alt="<?php echo he($item); ?>">
-              <?php echo he($item); ?>
-            </a>
-          </li>
-          <?php
-            }
-          ?>
-        </ul>
-      </div>
-
-      <div class="list">
-        <h3>Friends using this app</h3>
-        <ul class="friends">
-          <?php
-            foreach ($app_using_friends as $auf) {
-              // Extract the pieces of info we need from the requests above
-              $id = idx($auf, 'uid');
-              $name = idx($auf, 'name');
-          ?>
-          <li>
-            <a href="https://www.facebook.com/<?php echo he($id); ?>" target="_top">
-              <img src="https://graph.facebook.com/<?php echo he($id) ?>/picture?type=square" alt="<?php echo he($name); ?>">
-              <?php echo he($name); ?>
-            </a>
-          </li>
-          <?php
-            }
-          ?>
-        </ul>
-      </div>
-    </section> -->
 
 
 <div id="messages"  class="grayborder_whitefont actualThread">
@@ -442,8 +325,8 @@ $app_name = idx($app_info, 'name', '');
     {?>
    
        <div class="message">
-          <div class="msgHour"><?php echo idx($msg,"created_time")?></div>
-          <span class="from"><?php echo idx($msgFrom,"name");?> </span>
+          <div class="msgHour"><?php //echo idx($msg,"created_time")?></div>
+          <span class="from"><?php //echo idx($msgFrom,"name");?> </span>
           <span class="msgText"><?php echo idx($msg,"message")?> </span>
 
         </div>
@@ -452,7 +335,9 @@ $app_name = idx($app_info, 'name', '');
    
 
 
-   <?php }
+   <?php 
+
+      }//foreach msgs
 
     ?> 
 
