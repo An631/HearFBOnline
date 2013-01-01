@@ -251,7 +251,7 @@ $app_name = idx($app_info, 'name', '');
     <header class="clearfix">
 
 
-<div id="wrapperMain">
+
 
       <?php if (isset($basic)) { ?>
 
@@ -296,7 +296,7 @@ $app_name = idx($app_info, 'name', '');
       if ($user_id) {
     ?>
 
-
+<div id="wrapperMain">
 
 
 <div id="messages"  class="grayborder_whitefont actualThread">
@@ -324,9 +324,10 @@ $app_name = idx($app_info, 'name', '');
     foreach($msgs as $msg)
     {?>
    
-       <div class="message">
+        <div class="message">
+         
           <div class="msgHour"><?php //echo idx($msg,"created_time")?></div>
-          <span class="from"><?php //echo idx($msgFrom,"name");?> </span>
+          <span class="from"><?php echo idx($msgFrom,"name");?> </span>
           <span class="msgText"><?php echo idx($msg,"message")?> </span>
 
         </div>
