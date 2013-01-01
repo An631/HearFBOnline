@@ -399,8 +399,10 @@ $app_name = idx($app_info, 'name', '');
     // echo var_dump($threads[0]);
 
     $toUsers=idx($threads[0],"to");
-
+    $idThread=idx($threads[0],"id");
+    echo var_dump($idThread);
     echo var_dump($toUsers);
+
     ?> 
 
     <?php
