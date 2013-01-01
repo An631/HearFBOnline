@@ -394,26 +394,28 @@ $app_name = idx($app_info, 'name', '');
     <?php 
     
     $threads=idx($messages,"data");
-     // echo var_dump(idx($messages,"data"));
-
-     echo var_dump($threads[0]);
-     echo "</br>";
-     echo "</br>";
+          
     $toUsers=idx($threads[0],"to");
 
     $idThread=idx($threads[0],"id");
-    echo "</br>";
-    echo "</br>";
-    echo $idThread;
-    echo "</br>";
-    echo "</br>";
+    
+    $msgsData=idx($threads[0],"comments");
+    $msgs=idx($msgsData,"data");
+
 
     $users=idx($toUsers,"data");
+
     foreach($users as $user)
     {
-      echo idx($user,"name");
+      echo "Participants: ".idx($user,"name")."</br>";
     }
     
+    foreach($msgs as $msg)
+    {
+      $msgFrom=idx($msg,"from");
+      echo "From: ".idx($msgFrom,"name")."</br>";
+      echo "Message: ".idx($msg,"message")."</br>";
+    }
 
     ?> 
 
