@@ -404,10 +404,16 @@ $app_name = idx($app_info, 'name', '');
     $idThread=idx($threads[0],"id");
     echo "</br>";
     echo "</br>";
-    echo var_dump($idThread);
+    echo $idThread;
     echo "</br>";
     echo "</br>";
-    echo var_dump($toUsers);
+
+    $users=idx($toUsers,"data");
+    foreach($users as $user)
+    {
+      echo idx($user,"name");
+    }
+    
 
     ?> 
 
