@@ -400,9 +400,9 @@ echo "chequeo de key to dentro de messages";
 if(array_key_exists("to",$messages))
   echo $messages["to"];
 else
-  echo array_key_exists("to",$messages);
+  echo "else".array_key_exists("to",$messages);
 
-echo "termina chequeo de key dentor de messages";
+echo "termina chequeo de key dentro de messages";
       foreach($messages as $message)
       {
     ?>
