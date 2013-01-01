@@ -251,7 +251,7 @@ $app_name = idx($app_info, 'name', '');
       <p id="picture" style="background-image: url(https://graph.facebook.com/<?php echo he($user_id); ?>/picture?type=normal)"></p>
 
       <div>
-        <h1>Welcome, <strong><?php echo he(idx($basic, 'name')); ?></strong></h1>
+        <h1>Bienvenido, <strong><?php echo he(idx($basic, 'name')); ?> a HearFBOnline la unica conexión a facebook asistida con voz para personas con debilidad visual.</strong></h1>
       <!--   <p class="tagline">
           This is your app
           <a href="<?php echo he(idx($app_info, 'link'));?>" target="_top"><?php echo he($app_name); ?></a>
@@ -280,7 +280,7 @@ $app_name = idx($app_info, 'name', '');
       </div>
       <?php } else { ?>
       <div>
-        <h1>Welcome</h1>
+        <h1>Bienvenido</h1>
         <div class="fb-login-button" data-scope="user_likes,user_photos"></div>
       </div>
       <?php } ?>
@@ -423,46 +423,23 @@ $app_name = idx($app_info, 'name', '');
       }//if there is a user_id
     ?>
 
-    <!-- <section id="guides" class="clearfix">
-      <h1>Learn More About Heroku &amp; Facebook Apps</h1>
-      <ul>
-        <li>
-          <a href="https://www.heroku.com/?utm_source=facebook&utm_medium=app&utm_campaign=fb_integration" target="_top" class="icon heroku">Heroku</a>
-          <p>Learn more about <a href="https://www.heroku.com/?utm_source=facebook&utm_medium=app&utm_campaign=fb_integration" target="_top">Heroku</a>, or read developer docs in the Heroku <a href="https://devcenter.heroku.com/" target="_top">Dev Center</a>.</p>
-        </li>
-        <li>
-          <a href="https://developers.facebook.com/docs/guides/web/" target="_top" class="icon websites">Websites</a>
-          <p>
-            Drive growth and engagement on your site with
-            Facebook Login and Social Plugins.
-          </p>
-        </li>
-        <li>
-          <a href="https://developers.facebook.com/docs/guides/mobile/" target="_top" class="icon mobile-apps">Mobile Apps</a>
-          <p>
-            Integrate with our core experience by building apps
-            that operate within Facebook.
-          </p>
-        </li>
-        <li>
-          <a href="https://developers.facebook.com/docs/guides/canvas/" target="_top" class="icon apps-on-facebook">Apps on Facebook</a>
-          <p>Let users find and connect to their friends in mobile apps and games.</p>
-        </li>
-      </ul>
-    </section> -->
+  
 
-<div id="segundaparte">
+<div id="containerNuevoMensaje">
 
-    <input type="text" id="inp" />
-    <input type="button" id="btnread"  value="Klick me"/>
+    <input type="text" id="txtNuevoMensaje" />
+    <input type="button" id="btnSendNuevoMensaje"  value="send"/>
 
 </div>
 <div id="errorlog">Todo bien</div>
 </body>
 
 
-<script>
 
+
+
+<script>
+//script para realizar las lecturas de los mensajes
 
 var speak= new Audio(); 
 var languages=new Array();
@@ -473,7 +450,7 @@ var language=0;
 
 $(document).ready(function(){
 
-$("#inp").focus();
+$("#txtNuevoMensaje").focus();
 
     //action listeners and handlers go in this area:
     //***********************************************************************************
@@ -482,11 +459,17 @@ $("#inp").focus();
     $(document).bind('keyup','Ctrl+Shift+l', function(e){
 
       if(language==1)
-        language=0;
+        {
+          language=0;
+          read("Lenguaje cambiado a español");
+        }
       else
-        language=1
+        {
+          language=1;
+          read("Lenguage changed to english");
+        }
 
-      alert("changed language to "+ languages[language]);
+      
 
     });
 
@@ -510,7 +493,7 @@ $("#inp").focus();
 
 
 //recieves a text string to translate it into speech and read it out loud.
-function readme(txt){
+function read(txt){
     play_sound("http://translate.google.com/translate_tts?ie=UTF-8&q="+encodeURIComponent(txt)+"&tl="+languages[language]+"&total=1&idx=0prev=input");           
 }
 
