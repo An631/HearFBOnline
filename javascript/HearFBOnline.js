@@ -143,7 +143,7 @@ function readMessage(from, message, time)
 function read(txt){
 	
 	 txt=modernDictionaryTranslate(txt);
-    play_sound("http://translate.google.com/translate_tts?ie=UTF-8&q="+txt+"&tl="+languages[language]+"&total=1&idx=0prev=input");           
+    play_sound("http://translate.google.com/translate_tts?ie=UTF-8&q="+encodeURI(txt)+"&tl="+languages[language]+"&total=1&idx=0prev=input");           
 }
 
 //plays the sound sending it to google TTS service and creating a html5 sound tag to play the sound if it is suported
