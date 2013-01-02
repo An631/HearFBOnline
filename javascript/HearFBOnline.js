@@ -1,6 +1,8 @@
 //script para poder mandar leer texto en pantalla y acciones realizadas
 
 var speak= new Audio(); 
+
+
 var languages=new Array();
 languages[0]="es";
 languages[1]="en";
@@ -9,16 +11,19 @@ var language=0;
 
 var notyet=0;
 
+
+
+
+
+
+
 $(document).ready(function(){
-
-
-
-
 
 //comandos de inicialización
 //*****************************************************************************
 $("#txtNuevoMensaje").focus();
-$(".actualThread .message:last-child").addClass("selectedMsg");
+//aqui va el metodo que pone currentThread class a la conversación activa
+$(".currentThread .message:last-child").addClass("selectedMsg");
 scrollMessages();
 //*****************************************************************************
 
@@ -54,7 +59,7 @@ scrollMessages();
           if(notyet===0)
           {
             //obtenemos la hora y día impresa en  el mensaje seleccionado
-            var currentMsgHour=$(".actualThread .selectedMsg .msgHour").html();
+            var currentMsgHour=$(".currentThread .selectedMsg .msgHour").html();
 
             //separamos la hora y la fecha para poder enviarlos al metodo readMsgDate( por separado
             var currentMsgHourArray=currentMsgHour.split(" ");
@@ -69,8 +74,8 @@ scrollMessages();
 
   $(document).bind('keydown','UP', function(e){
      
-     		var currentMsg=$(".actualThread .selectedMsg");
-	     	var prevMsg=$(".actualThread .selectedMsg").prev();
+     		var currentMsg=$(".currentThread .selectedMsg");
+	     	var prevMsg=$(".currentThread .selectedMsg").prev();
 	     	
 	     	//revisa que el mesaje seleccionado no sea el ultimo en la lista
 	     	if(!$(currentMsg).is(':first-child') && (notyet===0))
@@ -80,9 +85,9 @@ scrollMessages();
 		     	prevMsg.attr("class","message selectedMsg"); 		
 		     	
 		     	//obtenemos la info del msg para el sintetizador de voz
-		     	var from=$(".actualThread .selectedMsg .from").html();
-		     	var msgText=$(".actualThread .selectedMsg .msgText").html();
-		     	var msgHour=$(".actualThread .selectedMsg .msgHour").html();
+		     	var from=$(".currentThread .selectedMsg .from").html();
+		     	var msgText=$(".currentThread .selectedMsg .msgText").html();
+		     	var msgHour=$(".currentThread .selectedMsg .msgHour").html();
 
 		     	//mandamos leer el mensaje al sintetizador de google
 		     	readMessage(from,msgText,msgHour);
@@ -98,8 +103,8 @@ scrollMessages();
      $(document).bind('keydown','DOWN', function(e){
      
 
-     		var currentMsg=$(".actualThread .selectedMsg");
-          var nextMsg=$(".actualThread .selectedMsg").next();
+     		var currentMsg=$(".currentThread .selectedMsg");
+          var nextMsg=$(".currentThread .selectedMsg").next();
 	     	
 	     	//revisa que el mesaje seleccionado no sea el ultimo en la lista
 	     	if(!$(currentMsg).is(':last-child') && (notyet===0))
@@ -111,9 +116,9 @@ scrollMessages();
 		     	scrollMessages();
 
 				//obtenemos la info del msg para el sintetizador de voz
-		     	var from=$(".actualThread .selectedMsg .from").html();
-		     	var msgText=$(".actualThread .selectedMsg .msgText").html();
-		     	var msgHour=$(".actualThread .selectedMsg .msgHour").html();
+		     	var from=$(".currentThread .selectedMsg .from").html();
+		     	var msgText=$(".currentThread .selectedMsg .msgText").html();
+		     	var msgHour=$(".currentThread .selectedMsg .msgHour").html();
 
 		     	//mandamos leer el mensaje al sintetizador de google
 		     	readMessage(from,msgText,msgHour);
@@ -131,16 +136,16 @@ scrollMessages();
 
         if(notyet===0)
         {
-          var currentMsg=$(".actualThread .selectedMsg");
+          var currentMsg=$(".currentThread .selectedMsg");
 
           currentMsg.attr("class","message");
           $(this).attr("class","message selectedMsg");    
           scrollMessages();
 
         //obtenemos la info del msg para el sintetizador de voz
-          var from=$(".actualThread .selectedMsg .from").html();
-          var msgText=$(".actualThread .selectedMsg .msgText").html();
-          var msgHour=$(".actualThread .selectedMsg .msgHour").html();
+          var from=$(".currentThread .selectedMsg .from").html();
+          var msgText=$(".currentThread .selectedMsg .msgText").html();
+          var msgHour=$(".currentThread .selectedMsg .msgHour").html();
 
           //mandamos leer el mensaje al sintetizador de google
           readMessage(from,msgText,msgHour);
@@ -182,10 +187,13 @@ function clearTimer()
 	
 notyet=0;
 }
+
+
+
 function scrollMessages()
 {
 
-	var container=$(".actualThread");
+	var container=$(".currentThread");
 	var scrollTo=$(".selectedMsg");
 
 	container.animate({
@@ -196,30 +204,39 @@ function scrollMessages()
 	},{duration:'10'});
 }//scroll messages
 
+
+
+
 //esta función lee exclusivamente mensajes utilizando la funcion read()
 function readMessage(from, message)
 {
 
-
+  var arrayTextToSpeak=new Array();
   message=modernDictionaryTranslate(message);
 
     //se debe de separar el texto en pedazos de 100 caracteres para que google los acepte.
 
     if (message.length>50) 
     {
+      var piecesCounter=0;
       for(i=0;i<message.length;(i=i+50))
       {
         var pieceOfMsg=message.substring(i,i+50);
-        read(pieceOfMsg);
         
-
+        arrayTextToSpeak[piecesCounter]=new Audio("http://translate.google.com/translate_tts?ie=UTF-8&q="+encodeURI(pieceOfMsg)+"&tl="+languages[language]+"&total=1&idx=0prev=input");
+        piecesCounter=piecesCounter+1;
+        // alert(arrayTextToSpeak[piecesCounter]);
       }
+
+      readArrayOfSounds(0,arrayTextToSpeak);
+
     }
     else
     {
       var texto=from+" dijo: "+message;
       read(texto);
     }//else if message.length>100
+
 
 }//readMessage
 
@@ -230,12 +247,26 @@ function readMsgDate(hour,date)
   read(texto);
 }
 
+
+//this method reads an array of sounds one after another
+function readArrayOfSounds(indice,arrayTextToSpeak)
+{
+  
+  // alert(arrayTextToSpeak[indice]+" indice: "+indice);
+  if(indice<arrayTextToSpeak.length)
+  {//THE SOUNDS ARE NOT WAITING FOR THE ENDED LISTENER
+    arrayTextToSpeak[indice].addEventListener("ended",readArrayOfSounds(indice+1,arrayTextToSpeak));
+    arrayTextToSpeak[indice].load();
+    arrayTextToSpeak[indice].play();
+  }
+}
+
+
 //recieves a text string to translate it into speech and read it out loud.
 function read(txt){
 	
   //this part is going to be sweet because I have to separate the txt string into chunks of 100 chars in order for the google tts service
   //to provide me with texts longer than 100 chars translated to voice.
-	 
     play_sound("http://translate.google.com/translate_tts?ie=UTF-8&q="+encodeURI(txt)+"&tl="+languages[language]+"&total=1&idx=0prev=input");           
 }
 

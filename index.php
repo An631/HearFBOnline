@@ -299,7 +299,7 @@ $app_name = idx($app_info, 'name', '');
 <div id="wrapperMain">
 
 
-<div id="messages"  class="grayborder_whitefont actualThread">
+<div id="messages"  class="grayborder_whitefont currentThread">
    
 
     <?php 
