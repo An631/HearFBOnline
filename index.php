@@ -260,7 +260,7 @@ $app_name = idx($app_info, 'name', '');
 
   <p id="picture" style="background-image: url(https://graph.facebook.com/<?php echo he($user_id); ?>/picture?type=normal)"></p>
       <div>
-        <h1>Bienven ido, <strong><?php echo he(idx($basic, 'name')); ?> a HearFBOnline la unica conexión a facebook asistida con voz para personas con debilidad visual.</strong></h1>
+        <h1>Bienvenido, <strong><?php echo he(idx($basic, 'name')); ?> a HearFBOnline la unica conexión a facebook asistida con voz para personas con debilidad visual.</strong></h1>
    
       </div><!--bienvenido container-->
 
@@ -328,7 +328,7 @@ $app_name = idx($app_info, 'name', '');
       $created_time= idx($msg,"created_time");
       
       //parseamos el created_time para obtener el tiempo y la fecha del mensaje
-      $dateArray=explode("T",$create_time);  
+      $dateArray=explode("T",$created_time);  
 
       $date=$dateArray[0];
       $timeArray=explode("+",$dateArray[1]);
