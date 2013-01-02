@@ -11,6 +11,10 @@ var notyet=0;
 
 $(document).ready(function(){
 
+
+
+
+
 //comandos de inicialización
 //*****************************************************************************
 $("#txtNuevoMensaje").focus();
@@ -94,13 +98,13 @@ scrollMessages();
      $(document).bind('keydown','DOWN', function(e){
      
 
-     		
+     		var currentMsg=$(".actualThread .selectedMsg");
+          var nextMsg=$(".actualThread .selectedMsg").next();
 	     	
 	     	//revisa que el mesaje seleccionado no sea el ultimo en la lista
 	     	if(!$(currentMsg).is(':last-child') && (notyet===0))
 	     	{
-          var currentMsg=$(".actualThread .selectedMsg");
-          var nextMsg=$(".actualThread .selectedMsg").next();
+          
 
 		     	currentMsg.attr("class","message");
 		     	nextMsg.attr("class","message selectedMsg"); 		
@@ -128,7 +132,7 @@ scrollMessages();
         if(notyet===0)
         {
           var currentMsg=$(".actualThread .selectedMsg");
-          
+
           currentMsg.attr("class","message");
           $(this).attr("class","message selectedMsg");    
           scrollMessages();
@@ -197,10 +201,27 @@ function readMessage(from, message)
 {
 
 
+  message=modernDictionaryTranslate(message);
 
-	var texto=from+" dijo: "+message;
-	read(texto);
-}
+    //se debe de separar el texto en pedazos de 100 caracteres para que google los acepte.
+
+    if (message.length>50) 
+    {
+      for(i=0;i<message.length;(i=i+50))
+      {
+        var pieceOfMsg=message.substring(i,i+50);
+        read(pieceOfMsg);
+        
+
+      }
+    }
+    else
+    {
+      var texto=from+" dijo: "+message;
+      read(texto);
+    }//else if message.length>100
+
+}//readMessage
 
 //funcion que lee la hora que se le envíe
 function readMsgDate(hour,date)
@@ -212,7 +233,9 @@ function readMsgDate(hour,date)
 //recieves a text string to translate it into speech and read it out loud.
 function read(txt){
 	
-	 txt=modernDictionaryTranslate(txt);
+  //this part is going to be sweet because I have to separate the txt string into chunks of 100 chars in order for the google tts service
+  //to provide me with texts longer than 100 chars translated to voice.
+	 
     play_sound("http://translate.google.com/translate_tts?ie=UTF-8&q="+encodeURI(txt)+"&tl="+languages[language]+"&total=1&idx=0prev=input");           
 }
 
@@ -222,14 +245,15 @@ function play_sound(url){
     if(html5_audio){
       //if there is a speak object existing we make sure to stop it before sending a new one.
       
-      log("entro a play_sound");
+     
       speak.pause();
-        speak = new Audio(url);
-        log("pidiendo traducción a voz");
+      speak = new Audio(url);
+        
       speak.load();
-      log("cargando voz");
+    
       speak.play();
-      log("reproduciendo voz");
+      
+
 
     }else{
         $("#sound").remove();
