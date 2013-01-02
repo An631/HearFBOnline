@@ -54,7 +54,6 @@ scrollMessages();
 
             //separamos la hora y la fecha para poder enviarlos al metodo readMsgDate( por separado
             var currentMsgHourArray=currentMsgHour.split(" ");
-            alert(currentMsgHourArray[1]+" "+currentMsgHourArray[0]);
             readMsgDate(currentMsgHourArray[1],currentMsgHourArray[0]);
             
             notyet=1;
@@ -95,12 +94,14 @@ scrollMessages();
      $(document).bind('keydown','DOWN', function(e){
      
 
-     		var currentMsg=$(".actualThread .selectedMsg");
-	     	var nextMsg=$(".actualThread .selectedMsg").next();
+     		
 	     	
 	     	//revisa que el mesaje seleccionado no sea el ultimo en la lista
 	     	if(!$(currentMsg).is(':last-child') && (notyet===0))
 	     	{
+          var currentMsg=$(".actualThread .selectedMsg");
+          var nextMsg=$(".actualThread .selectedMsg").next();
+
 		     	currentMsg.attr("class","message");
 		     	nextMsg.attr("class","message selectedMsg"); 		
 		     	scrollMessages();
@@ -119,6 +120,36 @@ scrollMessages();
 	     	}	
      });
 
+
+      //if I click over a text it should change the selectedMsg class and say the message on it
+    $(".message").click(function(e){
+      
+
+        if(notyet===0)
+        {
+          var currentMsg=$(".actualThread .selectedMsg");
+          
+          currentMsg.attr("class","message");
+          $(this).attr("class","message selectedMsg");    
+          scrollMessages();
+
+        //obtenemos la info del msg para el sintetizador de voz
+          var from=$(".actualThread .selectedMsg .from").html();
+          var msgText=$(".actualThread .selectedMsg .msgText").html();
+          var msgHour=$(".actualThread .selectedMsg .msgHour").html();
+
+          //mandamos leer el mensaje al sintetizador de google
+          readMessage(from,msgText,msgHour);
+
+          scrollMessages();
+          notyet=1;
+          setTimeout('clearTimer()', 100);
+        } 
+
+      
+      
+     
+    });
 
 
     //this method is used for the button to read
