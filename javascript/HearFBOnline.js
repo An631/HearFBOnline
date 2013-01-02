@@ -11,10 +11,15 @@ var notyet=0;
 
 $(document).ready(function(){
 
-
+//comandos de inicialización
+//*****************************************************************************
 $("#txtNuevoMensaje").focus();
 $(".actualThread .message:last-child").addClass("selectedMsg");
 scrollMessages();
+//*****************************************************************************
+
+
+
     //action listeners and handlers go in this area:
     //***********************************************************************************
 
@@ -133,10 +138,19 @@ function scrollMessages()
 }//scroll messages
 
 //esta función lee exclusivamente mensajes utilizando la funcion read()
-function readMessage(from, message, time)
+function readMessage(from, message)
 {
-	var texto=from+" dijo: "+message+". a las "+time;
+
+
+
+	var texto=from+" dijo: "+message;
 	read(texto);
+}
+
+//funcion que lee la hora que se le envíe
+function readMsgDate(hour,date)
+{
+  var texto="Enviado a las " +hour+" el "+date);
 }
 
 //recieves a text string to translate it into speech and read it out loud.
