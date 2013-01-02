@@ -25,17 +25,41 @@ scrollMessages();
 
     //used to change language
     $(document).bind('keyup','Ctrl+Shift+l', function(e){
-
+    
+    if(notyet===0)
+    {
       if(language==1)
-        {
-          language=0;
-          read("Lenguaje cambiado a español");
-        }
+      {
+        language=0;
+        read("Lenguaje cambiado a español");
+      }
       else
-        {
-          language=1;
-          read("Language changed to english");
-        }
+      {
+        language=1;
+        read("Language changed to english");
+      }
+
+      notyet=1;
+      setTimeout('clearTimer()', 100);
+      } 
+    });
+
+
+ //used to read date of current selected message
+    $(document).bind('keyup','Ctrl+Shift+k', function(e){
+          if(notyet===0)
+          {
+            //obtenemos la hora y día impresa en  el mensaje seleccionado
+            var currentMsgHour=$(".actualThread .selectedMsg .msgHour").html();
+
+            //separamos la hora y la fecha para poder enviarlos al metodo readMsgDate( por separado
+            var currentMsgHourArray=currentMsgHour.split(" ");
+            alert(currentMsgHourArray[1]+" "+currentMsgHourArray[0]);
+            readMsgDate(currentMsgHourArray[1],currentMsgHourArray[0]);
+            
+            notyet=1;
+            setTimeout('clearTimer()', 100);
+          } 
     });
 
 
@@ -150,7 +174,8 @@ function readMessage(from, message)
 //funcion que lee la hora que se le envíe
 function readMsgDate(hour,date)
 {
-  var texto="Enviado a las " +hour+" el "+date);
+  var texto="Enviado a las " +hour+" el "+date;
+  read(texto);
 }
 
 //recieves a text string to translate it into speech and read it out loud.
