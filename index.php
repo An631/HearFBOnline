@@ -325,7 +325,7 @@ $app_name = idx($app_info, 'name', '');
           //   echo "Participants: ".idx($user,"name")."</br>";
           // }
      ?>     
-          <div id="messages"  class="grayborder_whitefont currentThread">
+          <div id="messages"  class="grayborder_whitefont">
 
       <?php
 

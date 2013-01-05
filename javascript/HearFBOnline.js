@@ -42,6 +42,7 @@ $(document).ready(function(){
 //*****************************************************************************
 $("#txtNuevoMensaje").focus();
 //aqui va el metodo que pone currentThread class a la conversación activa
+$("#wrapperMain:first-child").addClass("currentThread");
 $(".currentThread .message:last-child").addClass("selectedMsg");
 scrollMessages();
 
