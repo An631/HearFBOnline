@@ -300,59 +300,64 @@ $app_name = idx($app_info, 'name', '');
 <div id="wrapperMain">
 
 
-<div id="messages"  class="grayborder_whitefont currentThread">
+
    
 
     <?php 
     
     $threads=idx($messages,"data");
-          
-    $toUsers=idx($threads[0],"to");
-
-    $idThread=idx($threads[0],"id");
-    
-    $msgsData=idx($threads[0],"comments");
-    $msgs=idx($msgsData,"data");
-
-
-    $users=idx($toUsers,"data");
-
-    // foreach($users as $user)
-    // {
-    //   echo "Participants: ".idx($user,"name")."</br>";
-    // }
-    
-    foreach($msgs as $msg)
-    {
-      $msgFrom=idx($msg,"from");
-
-      $created_time= idx($msg,"created_time");
-      
-      //parseamos el created_time para obtener el tiempo y la fecha del mensaje
-      $dateArray=explode("T",$created_time);  
-
-      $date=$dateArray[0];
-      $timeArray=explode("+",$dateArray[1]);
-
-      $time =$timeArray[0];
-      ?>
-   
-        <div class="message">
          
-          <div class="msgHour"><?php echo $date." ".$time?></div>
-          <span class="from"><?php echo idx($msgFrom,"name");?> </span>
-          <span class="msgText"><?php echo idx($msg,"message")?> </span>
 
-        </div>
+    foreach($threads as $thread)
+    {
+          $toUsers=idx($thread,"to");
+
+          $idThread=idx($thread,"id");
+          
+          $msgsData=idx($thread,"comments");
+          $msgs=idx($msgsData,"data");
 
 
-   
+          $users=idx($toUsers,"data");
+
+          // foreach($users as $user)
+          // {
+          //   echo "Participants: ".idx($user,"name")."</br>";
+          // }
+          <div id="messages"  class="grayborder_whitefont currentThread">
+
+
+          foreach($msgs as $msg)
+          {
+            $msgFrom=idx($msg,"from");
+
+            $created_time= idx($msg,"created_time");
+            
+            //parseamos el created_time para obtener el tiempo y la fecha del mensaje
+            $dateArray=explode("T",$created_time);  
+
+            $date=$dateArray[0];
+            $timeArray=explode("+",$dateArray[1]);
+
+            $time =$timeArray[0];
+            ?>
+         
+              <div class="message">
+               
+                <div class="msgHour"><?php echo $date." ".$time?></div>
+                <span class="from"><?php echo idx($msgFrom,"name");?> </span>
+                <span class="msgText"><?php echo idx($msg,"message")?> </span>
+
+              </div>
+
+
+         
 
 
    <?php 
 
-      }//foreach msgs
-
+            }//foreach msgs
+      }//foreach threads
     ?> 
 
     <?php
