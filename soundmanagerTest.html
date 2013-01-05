@@ -1,0 +1,56 @@
+<script src="./javascript/soundmanager2.js"></script>
+
+<html>
+<head>
+  <title>Test</title>
+</head>
+<body>
+  Prueba
+  </body>
+  <script>
+
+
+soundManager.setup({
+  url: 'javascript/soundmanager2/swf',
+  preferFlash: false,
+  flashVersion: 9,
+  onready: function() {
+    // console.log('SM2 ready!');
+    whenready();
+  },
+  ontimeout: function() {
+    // console.log('SM2 init failed!');
+    alert("todo cayo sobre de mi");
+  },
+  defaultOptions: {
+    // set global default volume for all sound objects
+    volume: 33
+  }
+});
+
+function whenready()
+{
+soundManager.createSound({
+ id:'voice',
+ url:'/home/user/Music/Descargas/Moenia-MejorYaNo.mp3'
+});
+soundManager.play('voice',{
+
+  multiShotEvents:true,
+  onfinish:function(){
+    alert(whenready());
+  }
+
+});//play
+}//when ready
+
+
+
+
+
+
+
+      
+
+</script>
+</html>
