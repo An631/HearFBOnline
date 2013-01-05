@@ -307,7 +307,7 @@ $app_name = idx($app_info, 'name', '');
     
     $threads=idx($messages,"data");
          
-
+    echo $threads."</br></br>";
     foreach($threads as $thread)
     {
           $toUsers=idx($thread,"to");
