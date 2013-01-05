@@ -27,7 +27,7 @@ soundManager.setup({
   },
   defaultOptions: {
     // set global default volume for all sound objects
-    volume: 33
+    volume: 50
   }
 });//soundmanager Setup
 
@@ -42,7 +42,7 @@ $(document).ready(function(){
 //*****************************************************************************
 $("#txtNuevoMensaje").focus();
 //aqui va el metodo que pone currentThread class a la conversación activa
-$("#wrapperMain:first-child").addClass("currentThread");
+$("#wrapperMain div:first-child").addClass("currentThread");
 $(".currentThread .message:last-child").addClass("selectedMsg");
 scrollMessages();
 
