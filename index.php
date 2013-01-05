@@ -324,8 +324,10 @@ $app_name = idx($app_info, 'name', '');
           // {
           //   echo "Participants: ".idx($user,"name")."</br>";
           // }
+     ?>     
           <div id="messages"  class="grayborder_whitefont currentThread">
 
+      <?php
 
           foreach($msgs as $msg)
           {
@@ -357,10 +359,12 @@ $app_name = idx($app_info, 'name', '');
    <?php 
 
             }//foreach msgs
-      }//foreach threads
+      
     ?> 
-
+    </div><!--messages-->
     <?php
+
+        }//foreach threads
       }//if there is a user_id
     ?>
 
@@ -371,7 +375,7 @@ $app_name = idx($app_info, 'name', '');
 
 
         
-</div><!--messages-->
+
 
       <div id="containerNuevoMensaje">
 
