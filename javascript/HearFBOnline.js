@@ -1,7 +1,7 @@
 //script para poder mandar leer texto en pantalla y acciones realizadas
 
 var speak= new Audio(); 
-
+var arrayTextToSpeak=new Array();
 
 var languages=new Array();
 languages[0]="es";
@@ -11,6 +11,25 @@ var language=0;
 
 var notyet=0;
 
+var smIsReady=false;
+
+soundManager.setup({
+  url: 'javascript/soundmanager2/swf',
+  preferFlash: false,
+  flashVersion: 9,
+  onready: function() {
+    // console.log('SM2 ready!');
+    smIsReady=true;
+  },
+  ontimeout: function() {
+    // console.log('SM2 init failed!');
+    alert("todo cayo sobre de mi");
+  },
+  defaultOptions: {
+    // set global default volume for all sound objects
+    volume: 33
+  }
+});//soundmanager Setup
 
 
 
@@ -25,6 +44,12 @@ $("#txtNuevoMensaje").focus();
 //aqui va el metodo que pone currentThread class a la conversación activa
 $(".currentThread .message:last-child").addClass("selectedMsg");
 scrollMessages();
+
+
+
+
+
+
 //*****************************************************************************
 
 
@@ -63,7 +88,9 @@ scrollMessages();
 
             //separamos la hora y la fecha para poder enviarlos al metodo readMsgDate( por separado
             var currentMsgHourArray=currentMsgHour.split(" ");
-            readMsgDate(currentMsgHourArray[1],currentMsgHourArray[0]);
+            
+            if(smIsReady)
+              readMsgDate(currentMsgHourArray[1],currentMsgHourArray[0]);
             
             notyet=1;
             setTimeout('clearTimer()', 100);
@@ -89,6 +116,7 @@ scrollMessages();
 		     	var msgText=$(".currentThread .selectedMsg .msgText").html();
 		     	var msgHour=$(".currentThread .selectedMsg .msgHour").html();
 
+          if(smIsReady)
 		     	//mandamos leer el mensaje al sintetizador de google
 		     	readMessage(from,msgText,msgHour);
 
@@ -120,6 +148,7 @@ scrollMessages();
 		     	var msgText=$(".currentThread .selectedMsg .msgText").html();
 		     	var msgHour=$(".currentThread .selectedMsg .msgHour").html();
 
+          if(smIsReady)
 		     	//mandamos leer el mensaje al sintetizador de google
 		     	readMessage(from,msgText,msgHour);
 
@@ -147,6 +176,7 @@ scrollMessages();
           var msgText=$(".currentThread .selectedMsg .msgText").html();
           var msgHour=$(".currentThread .selectedMsg .msgHour").html();
 
+          if(smIsReady)
           //mandamos leer el mensaje al sintetizador de google
           readMessage(from,msgText,msgHour);
 
@@ -158,7 +188,7 @@ scrollMessages();
       
       
      
-    });
+    });//message click
 
 
     //this method is used for the button to read
@@ -167,7 +197,7 @@ scrollMessages();
       var texto=$("#txtNuevoMensaje").val();
 
       
-      
+      if(smIsReady)
       read(texto);
     });
 
@@ -211,31 +241,32 @@ function scrollMessages()
 function readMessage(from, message)
 {
 
-  var arrayTextToSpeak=new Array();
+  
   message=modernDictionaryTranslate(message);
 
     //se debe de separar el texto en pedazos de 100 caracteres para que google los acepte.
 
-    if (message.length>50) 
-    {
+    // if (message.length>50) 
+    // {
       var piecesCounter=0;
       for(i=0;i<message.length;(i=i+50))
       {
         var pieceOfMsg=message.substring(i,i+50);
-        
-        arrayTextToSpeak[piecesCounter]=new Audio("http://translate.google.com/translate_tts?ie=UTF-8&q="+encodeURI(pieceOfMsg)+"&tl="+languages[language]+"&total=1&idx=0prev=input");
+        if(i===0)
+          pieceOfMsg=from+" dijo "+pieceOfMsg;
+        arrayTextToSpeak[piecesCounter]="http://translate.google.com/translate_tts?ie=UTF-8&q="+encodeURI(pieceOfMsg)+"&tl="+languages[language]+"&total=1&idx=0prev=input";
         piecesCounter=piecesCounter+1;
         // alert(arrayTextToSpeak[piecesCounter]);
       }
 
       readArrayOfSounds(0,arrayTextToSpeak);
 
-    }
-    else
-    {
-      var texto=from+" dijo: "+message;
-      read(texto);
-    }//else if message.length>100
+    // }
+    // else
+    // {
+    //   var texto=from+" dijo: "+message;
+    //   read(texto);
+    // }//else if message.length>100
 
 
 }//readMessage
@@ -249,16 +280,29 @@ function readMsgDate(hour,date)
 
 
 //this method reads an array of sounds one after another
-function readArrayOfSounds(indice,arrayTextToSpeak)
+function readArrayOfSounds(indice,arraySounds)
 {
-  
   // alert(arrayTextToSpeak[indice]+" indice: "+indice);
-  if(indice<arrayTextToSpeak.length)
-  {//THE SOUNDS ARE NOT WAITING FOR THE ENDED LISTENER
-    arrayTextToSpeak[indice].addEventListener("ended",readArrayOfSounds(indice+1,arrayTextToSpeak));
-    arrayTextToSpeak[indice].load();
-    arrayTextToSpeak[indice].play();
-  }
+  if(indice<arraySounds.length)
+  {
+     stopAllSounds();//detenemos todos los 
+    soundManager.createSound({
+        id:'a'+indice,
+        url:arraySounds[indice]
+        });
+    
+        soundManager.play('a'+indice,{
+        multiShotEvents:true,
+        onfinish:function(){
+          soundManager.destroySound('a'+indice);
+          stopAllSounds();
+         if((indice+1)<arraySounds.length)
+          readArrayOfSounds(indice+1,arraySounds);
+        }//onfinish
+
+    });//play
+
+  }//if indice limits
 }
 
 
@@ -276,8 +320,8 @@ function play_sound(url){
     if(html5_audio){
       //if there is a speak object existing we make sure to stop it before sending a new one.
       
-     
-      speak.pause();
+     stopAllSounds();
+      // speak.pause();
       speak = new Audio(url);
         
       speak.load();
@@ -295,6 +339,17 @@ function play_sound(url){
         sound.attr('autostart', true);
         $('body').append(sound);
     }
+}
+
+//this methods stops all sounds
+function stopAllSounds()
+{
+
+  for(i = 0; i < 20 ;i=i+1)
+  {
+    soundManager.destroySound('a'+i);//nos deshacemos del sonido creado para que no se repita en el proximo mensaje
+  }
+  speak.pause();
 }
 
 //checks if html5 audio is supported by the browser
