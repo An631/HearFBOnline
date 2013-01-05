@@ -144,6 +144,7 @@ $app_name = idx($app_info, 'name', '');
     <!--<script type="text/javascript" src="/javascript/jquery-1.7.1.min.js"></script>-->
      <script src="javascript/jquery.js"></script>
     <script src="javascript/hotkeys.js"></script>
+    <script src="javascript/soundmanager2.js"></script>
 
 
     <script type="text/javascript">
