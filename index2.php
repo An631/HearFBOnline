@@ -49,31 +49,31 @@ $loginUrl = $facebook->getLoginUrl(array(
 ));
 
 
-//la funcion /me/permissions regresa todos los permisos de la aplicacion en un array
-//solo debemos de buscar dentro del array con array_key_exists para darnos cuenta si existe algún permiso
-//si no existe podemos solicitarlo mandando header("Location: ". $loginURL) El loginUrl es el Url que creamos aqui arriba para pedir
-//permisos por medio de oauth
-$permissions = $facebook->api("/me/permissions");
-if( array_key_exists('publish_stream', $permissions['data'][0]) && array_key_exists('read_stream', $permissions['data'][0]) && array_key_exists('read_mailbox', $permissions['data'][0]) ) {
-    // Permission is granted!
-    // Do the related task
-  //la funcion /me/feed/, 'post', array('message'=>mensaje) permite escribir sobre el muro de la persona
-      // $post_id = $facebook->api('/me/feed', 'post', array('message'=>'Hello World!'));
+// //la funcion /me/permissions regresa todos los permisos de la aplicacion en un array
+// //solo debemos de buscar dentro del array con array_key_exists para darnos cuenta si existe algún permiso
+// //si no existe podemos solicitarlo mandando header("Location: ". $loginURL) El loginUrl es el Url que creamos aqui arriba para pedir
+// //permisos por medio de oauth
+// $permissions = $facebook->api("/me/permissions");
+// if( array_key_exists('publish_stream', $permissions['data'][0]) && array_key_exists('read_stream', $permissions['data'][0]) && array_key_exists('read_mailbox', $permissions['data'][0]) ) {
+//     // Permission is granted!
+//     // Do the related task
+//   //la funcion /me/feed/, 'post', array('message'=>mensaje) permite escribir sobre el muro de la persona
+//       // $post_id = $facebook->api('/me/feed', 'post', array('message'=>'Hello World!'));
       
-      $messages = $facebook->api('/me/inbox');//we obtain the inbox of the messages
+//       $messages = $facebook->api('/me/inbox');//we obtain the inbox of the messages
  
-  } else {
-          // We don't have the permission
-          // Alert the user or ask for the permission!
-          header( "Location: " . $loginUrl );
-  }
+//   } else {
+//           // We don't have the permission
+//           // Alert the user or ask for the permission!
+//           header( "Location: " . $loginUrl );
+//   }
 
 
 
-	// Fetch the basic info of the app that they are using
-	$app_info = $facebook->api('/'. AppInfo::appID());
+// 	// Fetch the basic info of the app that they are using
+// 	$app_info = $facebook->api('/'. AppInfo::appID());
 
-	$app_name = idx($app_info, 'name', '');
+// 	$app_name = idx($app_info, 'name', '');
 ?>
 
 
