@@ -48,7 +48,7 @@ $("#threadsScroller").css("width",((threadsTotal*980)+10)+"px");
 $("#threadsScroller .thread").first().addClass("currentThread");
 $(".currentThread .message:last-child").addClass("selectedMsg");
 
-
+scrollConversations();
 scrollMessages();
 
 $("#txtNuevoMensaje").focus();
@@ -198,28 +198,27 @@ $("#txtNuevoMensaje").focus();
     //When pressing the left arrow the conversation will change to the previous one by changing the currentThread class from div.
     $(document).bind('keyup','LEFT',function(e){
 
-        var currentMsg=$(".currentThread .selectedMsg");
-          var nextMsg=$(".currentThread .selectedMsg").next();
+        var currentThread=$(".currentThread");
+          var prevThread=$(".currentThread").prev();
+
         
         //revisa que el mesaje seleccionado no sea el ultimo en la lista
-        if(!$(currentMsg).is(':last-child') && (notyet===0))
+        if(!$(currentThread).is(':first-child') && (notyet===0))
         {
           
+          currentThread.attr("class","thread");
+          prevThread.attr("class","thread currentThread");    
+          scrollConversations();
 
-          currentMsg.attr("class","message");
-          nextMsg.attr("class","message selectedMsg");    
-          scrollMessages();
-
-        //obtenemos la info del msg para el sintetizador de voz
-          var from=$(".currentThread .selectedMsg .from").html();
-          var msgText=$(".currentThread .selectedMsg .msgText").html();
-          var msgHour=$(".currentThread .selectedMsg .msgHour").html();
+        //obtenemos la info de los participantes para el sintetizador de voz
+          var participants=$(".currentThread .participantUsers").html();
+        
 
           if(smIsReady)
           //mandamos leer el mensaje al sintetizador de google
-          readMessage(from,msgText,msgHour);
+          readParticipants(participants);
 
-          scrollMessages();
+          scrollConversations();
           notyet=1;
           setTimeout('clearTimer()', 100);
         } 
@@ -228,7 +227,31 @@ $("#txtNuevoMensaje").focus();
 
     //When pressing the right arrow the conversation will change to the next one by changing the currentThread class from div.
     $(document).bind('keyup','RIGHT',function(e){
+        var currentThread=$(".currentThread");
+          var nextThread=$(".currentThread").next();
+          
+        
+        //revisa que el mesaje seleccionado no sea el ultimo en la lista
+        if(!$(currentThread).is(':last-child') && (notyet===0))
+        {
+          
+          
+          currentThread.attr("class","thread");
+          nextThread.attr("class","thread currentThread");    
+          scrollConversations();
 
+        //obtenemos la info de los participantes para el sintetizador de voz
+          var participants=$(".currentThread .participantUsers").html();
+       
+
+          if(smIsReady)
+          //mandamos leer el mensaje al sintetizador de google
+          readParticipants(participants);
+
+          scrollConversations();
+          notyet=1;
+          setTimeout('clearTimer()', 100);
+        } 
 
     });//Right arrow
 
@@ -261,11 +284,11 @@ notyet=0;
 }
 
 
-
+///se posiciona sobre el mensaje seleccionado 
 function scrollMessages()
 {
 
-	var container=$(".currentThread");
+	var container=$(".currentThread .messages");
 	var scrollTo=$(".selectedMsg");
 
 	container.animate({
@@ -276,7 +299,15 @@ function scrollMessages()
 	},{duration:'10'});
 }//scroll messages
 
+function scrollConversations()
+{
+  var container =$("#threadsContainer");
+  var toElement=$(".currentThread");
 
+  container.animate({
+      scrollLeft:(toElement.offset().left-container.offset().left+container.scrollLeft())
+  });//animate
+}//scrollConversations
 
 
 //esta función lee exclusivamente mensajes utilizando la funcion read()
@@ -320,7 +351,12 @@ function readMsgDate(hour,date)
   read(texto);
 }
 
-
+//funcion que lee a los participantes de una conversación
+function readParticipants(participants)
+{
+  var texto= "Chat con "+participants;
+  read(texto);
+}
 //this method reads an array of sounds one after another
 function readArrayOfSounds(indice,arraySounds)
 {
