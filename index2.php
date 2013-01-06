@@ -127,7 +127,7 @@ if ($user_id)
 
 <body class="blackBG_whitefont">
 <div id="fb-root"></div>
-    <script type="text/javascript">
+  <!--  <script type="text/javascript">
       window.fbAsyncInit = function() {
         FB.init({
           appId      : '<?php echo AppInfo::appID(); ?>', // App ID
@@ -159,7 +159,7 @@ if ($user_id)
         js.src = "//connect.facebook.net/en_US/all.js";
         fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'facebook-jssdk'));
-	</script>
+	</script>-->
 
 
 
