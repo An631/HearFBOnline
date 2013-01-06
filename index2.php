@@ -95,7 +95,7 @@ if ($user_id)
 
 <html>
 	<head>
-		<title>HearFB</title>
+		<title><?php echo $app_name;?></title>
 		<script src="javascript/jquery.js"></script>
 		<script src="javascript/hotkeys.js"></script>
 		<script src="javascript/soundmanager2.js"></script>
