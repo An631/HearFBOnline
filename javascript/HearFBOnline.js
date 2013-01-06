@@ -45,7 +45,7 @@ var threadsTotal=$("#threadsScroller > .thread").size();//aqui obtenemos el nume
 $("#threadsScroller").css("width",((threadsTotal*980)+10)+"px");
 
 //aqui va el metodo que pone currentThread class a la conversación activa
-$(".thread").first().addClass("currentThread");
+$("#threadsScroller .thread").first().addClass("currentThread");
 $(".currentThread .message:last-child").addClass("selectedMsg");
 
 
