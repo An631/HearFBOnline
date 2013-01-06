@@ -17,36 +17,36 @@ require_once('utils.php');
 //This provides the facebook php sdk
 require_once('sdk/src/facebook.php');
 
-//the facebook object is created
-$facebook = new Facebook(array(
-  'appId'  => AppInfo::appID(),//these credentials are taken from the server environment variables of heroku
-  'secret' => AppInfo::appSecret(),
-  'sharedSession' => true,
-  'trustForwarded' => true,
-));
+// //the facebook object is created
+// $facebook = new Facebook(array(
+//   'appId'  => AppInfo::appID(),//these credentials are taken from the server environment variables of heroku
+//   'secret' => AppInfo::appSecret(),
+//   'sharedSession' => true,
+//   'trustForwarded' => true,
+// ));
 
-//this looks to see if there is still a user active.
-$user_id = $facebook->getUser();
-if ($user_id) {
-  try {
-    // Fetch the viewer's basic information
-    $basic = $facebook->api('/me');
-  } catch (FacebookApiException $e) {
-    // If the call fails we check if we still have a user. The user will be
-    // cleared if the error is because of an invalid accesstoken
-    if (!$facebook->getUser()) {
-      header('Location: '. AppInfo::getUrl($_SERVER['REQUEST_URI']));
-      exit();
-    }
-  }
+// //this looks to see if there is still a user active.
+// $user_id = $facebook->getUser();
+// if ($user_id) {
+//   try {
+//     // Fetch the viewer's basic information
+//     $basic = $facebook->api('/me');
+//   } catch (FacebookApiException $e) {
+//     // If the call fails we check if we still have a user. The user will be
+//     // cleared if the error is because of an invalid accesstoken
+//     if (!$facebook->getUser()) {
+//       header('Location: '. AppInfo::getUrl($_SERVER['REQUEST_URI']));
+//       exit();
+//     }
+//   }
 
-//esta funcion de facebook->getLoginUrl() nos genera un URL que podemos mandar para pedir permisos para nuestra aplicacion
-  //podemos poner todos los permisos que deseamos que nos pida.
-  //el URL generado se vera algo asi:
-  //https://www.facebook.com/dialog/oauth?client_id=389474684480172&redirect_uri=https%3A%2F%2Fboiling-scrubland-5224.herokuapp.com%2F&state=dea70a648fded920443918c1520aaa9f&scope=read_mailbox%2Cpublish_stream%2Cread_stream
-$loginUrl = $facebook->getLoginUrl(array(
-    "scope" => "read_mailbox,publish_stream,read_stream"
-));
+// //esta funcion de facebook->getLoginUrl() nos genera un URL que podemos mandar para pedir permisos para nuestra aplicacion
+//   //podemos poner todos los permisos que deseamos que nos pida.
+//   //el URL generado se vera algo asi:
+//   //https://www.facebook.com/dialog/oauth?client_id=389474684480172&redirect_uri=https%3A%2F%2Fboiling-scrubland-5224.herokuapp.com%2F&state=dea70a648fded920443918c1520aaa9f&scope=read_mailbox%2Cpublish_stream%2Cread_stream
+// $loginUrl = $facebook->getLoginUrl(array(
+//     "scope" => "read_mailbox,publish_stream,read_stream"
+// ));
 
 
 // //la funcion /me/permissions regresa todos los permisos de la aplicacion en un array
