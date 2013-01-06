@@ -183,7 +183,7 @@ if ($user_id)
 
 				<?php foreach($threads as $thread)
 				{
-					echo var_dump($thread)."</br>;
+					echo var_dump($thread)."</br>";
 				}
 				?>
 					<div class="thread">
