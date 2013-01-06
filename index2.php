@@ -69,7 +69,10 @@ if ($user_id)
 		      // $post_id = $facebook->api('/me/feed', 'post', array('message'=>'Hello World!'));
 		      
 		      $messages = $facebook->api('/me/inbox');//we obtain the inbox of the messages
-		 
+		 		
+		      //we obtain all the threads from the $messages array
+		      $threads=idx($messages,"data");
+
 		} 
 		else
 		{
@@ -81,9 +84,12 @@ if ($user_id)
 }//if user_id exists
 
 	// Fetch the basic info of the app that they are using
-	$app_info = $facebook->api('/'. AppInfo::appID());
+	$app_info = $facebook->api('/'. AppInfo::appID());//app_info es un array del cual podemos sacar el nombre de la aplicación por ejemplo.
 
 	$app_name = idx($app_info, 'name', '');
+
+
+
 ?>
 
 
@@ -164,7 +170,7 @@ if ($user_id)
 	<div id="wrapperMain">
 			
 		<div id="HearFBOnlineTitle">
-			HearFBOnline<div>Facebook for the visually impaired</div>
+			<?php echo $app_name;?><div>Facebook for the visually impaired</div>
 		</div><!--HearFBOnlineTitle-->
 
 
@@ -173,6 +179,13 @@ if ($user_id)
 		
 		<div id="threadsContainer">
 			<div id="threadsScroller">
+					
+
+				<?php foreach($threads as $thread)
+				{
+					echo var_dump($thread)."</br>;
+				}
+				?>
 					<div class="thread">
 						<div class="participantUsers">
 							Angel Duran, Rafa Diaz
@@ -268,6 +281,8 @@ if ($user_id)
 
 					</div><!--thread-->
 
+
+					
 
 					<div class="thread">
 
