@@ -340,7 +340,12 @@ function readMessage(from, message)
       {
         var pieceOfMsg=message.substring(i,i+50);
         if(i===0)
+        {
+          if(language===0)
           pieceOfMsg=from+" dijo "+pieceOfMsg;
+          else if(language===1)
+            pieceOfMsg=from+" said "+pieceOfMsg;
+        }
         arrayTextToSpeak[piecesCounter]="http://translate.google.com/translate_tts?ie=UTF-8&q="+encodeURI(pieceOfMsg)+"&tl="+languages[language]+"&total=1&idx=0prev=input";
         piecesCounter=piecesCounter+1;
         // alert(arrayTextToSpeak[piecesCounter]);
@@ -361,14 +366,20 @@ function readMessage(from, message)
 //funcion que lee la hora que se le envíe
 function readMsgDate(hour,date)
 {
+  if(language===0)
   var texto="Enviado a las " +hour+" el "+date;
+  else if(language===1)
+    var texto="Sent at " +hour+" "+date;
   read(texto);
 }
 
 //funcion que lee a los participantes de una conversación
 function readParticipants(participants)
 {
+  if(language===0)
   var texto= "Chat con "+participants;
+else if(language===1)
+  var texto= "Chat with "+participants;
   read(texto);
 }
 //this method reads an array of sounds one after another
@@ -468,6 +479,7 @@ function modernDictionaryTranslate(texto)
   {
     texto=texto.replace(/\blmfao\b/gi,"laughing my fucking ass of");
     texto=texto.replace(/\bk\b/gi,"que");
+    texto=texto.replace(/\bya\b/gi,"you");
   }
   texto=texto.replace(/\bxD\b/gi,"me muero de risa");
   texto=texto.replace(/\b=D\b/gi,"estoy felíz");
