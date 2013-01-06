@@ -183,201 +183,71 @@ if ($user_id)
 
 				<?php foreach($threads as $thread)
 				{
-					echo var_dump($thread)."</br>";
-				}
+					
+					$toUsers=idx($thread,"to");
+					$participants=idx($toUsers,"data");
+
+					$idThread=idx($thread,"id");
+
+					$msgsData=idx($thread,"comments");
+					$msgs=idx($msgsData,"data");
+
+
+					
+
 				?>
 					<div class="thread">
 						<div class="participantUsers">
-							Angel Duran, Rafa Diaz
+
+							 <?php
+						          foreach($participants as $user)
+						          {
+						            echo idx($user,"name")." ";
+						          }
+					          ?>
+
 						</div><!--participantUsers-->
 
 						<div   class="grayborder_whitefont messages">
 						<!-- <div id="vScrollMessages"> -->
 							
-							<div class="message">
-									<div class="msgHour">2012-12-31 04:47:49</div>
-									<span class="from">Rafa Diaz</span>
-									<span class="msgText">Hola que haces? que me platicas? yo estoy bien, jugando al fifa 2012 pero ya se acabo, no quieres venir a jugar un rato? Hola que haces? que me platicas? yo estoy bien, jugando al fifa 2012 pero ya se acabo, no quieres venir a jugar un rato?</span>
+							<?php foreach($msgs as $msg)
+					        	{
+					        	//aqui se recaba la información de cada mensaje y se envía 
+					            $msgFrom=idx($msg,"from");
 
-								</div>
+					            $created_time= idx($msg,"created_time");
+					            
+					            //parseamos el created_time para obtener el tiempo y la fecha del mensaje
+					            $dateArray=explode("T",$created_time);  
+
+					            $date=$dateArray[0];
+					            $timeArray=explode("+",$dateArray[1]);
+
+					            $time =$timeArray[0];
+					        ?>
+					         
 								<div class="message">
-									<div class="msgHour">2012-12-31 04:47:49</div>
-									<span class="from">angel duran</span>
-									<span class="msgText">xD, nada nada y t&uacute;?</span>
+									<div>
+										<span class="from"><?php echo idx($msgFrom,"name");?></span>
+										<span class="msgHour"><?php echo $date." ".$time?></span>
+									</div>
+									<span class="msgText"><?php echo idx($msg,"message")?></span>
 
-								</div>
+								</div><!--message-->
+							<?php 
 
-								<div class="message">
-									<div class="msgHour">2012-12-31 04:47:49</div>
-									<span class="from">angel duran</span>
-									<span class="msgText">Hola que haces? que me platicas? yo estoy bien, jugando al fifa 2012 pero ya se acabo, no quieres ve</span>
+							    }//foreach msgs
+							  
+							?> 
 
-								</div>
-								
-
-								<div class="message">
-									<div class="msgHour">2012-12-31 04:47:49</div>
-									<span class="from">angel duran</span>
-									<span class="msgText">Entonces estaba sentado frente a un arbol que me dijo que lo siguiera pero no le quize hacer caso porque me ve&iacute;a raro</span>
-
-								</div>
-
-									<div class="message">
-									<div class="msgHour">2012-12-31 04:47:49</div>
-									<span class="from">Rafa Diaz</span>
-									<span class="msgText">Hola que haces? que me platicas? yo estoy bien, jugando al fifa 2012 pero ya se acabo, no quieres venir a jugar un rato? Hola que haces? que me platicas? yo estoy bien, jugando al fifa 2012 pero ya se acabo, no quieres venir a jugar un rato?</span>
-
-								</div>
-								<div class="message">
-									<div class="msgHour">2012-12-31 04:47:49</div>
-									<span class="from">angel duran</span>
-									<span class="msgText">xD, nada nada y t&uacute;?</span>
-
-								</div>
-
-								<div class="message">
-									<div class="msgHour">2012-12-31 04:47:49</div>
-									<span class="from">angel duran</span>
-									<span class="msgText">Hola que haces? que me platicas? yo estoy bien, jugando al fifa 2012 pero ya se acabo, no quieres ve</span>
-
-								</div>
-								
-
-								<div class="message">
-									<div class="msgHour">2012-12-31 04:47:49</div>
-									<span class="from">angel duran</span>
-									<span class="msgText">Entonces estaba sentado frente a un arbol que me dijo que lo siguiera pero no le quize hacer caso porque me ve&iacute;a raro</span>
-
-								</div>
-
-									<div class="message">
-									<div class="msgHour">2012-12-31 04:47:49</div>
-									<span class="from">Rafa Diaz</span>
-									<span class="msgText">Hola que haces? que me platicas? yo estoy bien, jugando al fifa 2012 pero ya se acabo, no quieres venir a jugar un rato? Hola que haces? que me platicas? yo estoy bien, jugando al fifa 2012 pero ya se acabo, no quieres venir a jugar un rato?</span>
-
-								</div>
-								<div class="message">
-									<div class="msgHour">2012-12-31 04:47:49</div>
-									<span class="from">angel duran</span>
-									<span class="msgText">xD, nada nada y t&uacute;?</span>
-
-								</div>
-
-								<div class="message">
-									<div class="msgHour">2012-12-31 04:47:49</div>
-									<span class="from">angel duran</span>
-									<span class="msgText">Hola que haces? que me platicas? yo estoy bien, jugando al fifa 2012 pero ya se acabo, no quieres ve</span>
-
-								</div>
-								
-
-								<div class="message">
-									<div class="msgHour">2012-12-31 04:47:49</div>
-									<span class="from">angel duran</span>
-									<span class="msgText">Entonces estaba sentado frente a un arbol que me dijo que lo siguiera pero no le quize hacer caso porque me ve&iacute;a raro</span>
-
-								</div>
 						</div><!--messages-->
 
 					</div><!--thread-->
+				<?php 
+				}//threads foreach
+				?>
 
-
-					
-
-					<div class="thread">
-
-						<div class="participantUsers">
-							Angel Duran, Rafa Diaz
-						</div><!--participantUsers-->
-
-						<div   class="grayborder_whitefont messages">
-							<!-- <div id="vScrollMessages"> -->
-								
-								<div class="message">
-									<div class="msgHour">2012-12-31 04:47:49</div>
-									<span class="from">Rafa Diaz</span>
-									<span class="msgText">Hola que haces? que me platicas? yo estoy bien, jugando al fifa 2012 pero ya se acabo, no quieres venir a jugar un rato? Hola que haces? que me platicas? yo estoy bien, jugando al fifa 2012 pero ya se acabo, no quieres venir a jugar un rato?</span>
-
-								</div>
-								<div class="message">
-									<div class="msgHour">2012-12-31 04:47:49</div>
-									<span class="from">angel duran</span>
-									<span class="msgText">xD, nada nada y t&uacute;?</span>
-
-								</div>
-
-								<div class="message">
-									<div class="msgHour">2012-12-31 04:47:49</div>
-									<span class="from">angel duran</span>
-									<span class="msgText">Hola que haces? que me platicas? yo estoy bien, jugando al fifa 2012 pero ya se acabo, no quieres ve</span>
-
-								</div>
-								
-
-								<div class="message">
-									<div class="msgHour">2012-12-31 04:47:49</div>
-									<span class="from">angel duran</span>
-									<span class="msgText">Entonces estaba sentado frente a un arbol que me dijo que lo siguiera pero no le quize hacer caso porque me ve&iacute;a raro</span>
-
-								</div>
-
-									<div class="message">
-									<div class="msgHour">2012-12-31 04:47:49</div>
-									<span class="from">Rafa Diaz</span>
-									<span class="msgText">Hola que haces? que me platicas? yo estoy bien, jugando al fifa 2012 pero ya se acabo, no quieres venir a jugar un rato? Hola que haces? que me platicas? yo estoy bien, jugando al fifa 2012 pero ya se acabo, no quieres venir a jugar un rato?</span>
-
-								</div>
-								<div class="message">
-									<div class="msgHour">2012-12-31 04:47:49</div>
-									<span class="from">angel duran</span>
-									<span class="msgText">xD, nada nada y t&uacute;?</span>
-
-								</div>
-
-								<div class="message">
-									<div class="msgHour">2012-12-31 04:47:49</div>
-									<span class="from">angel duran</span>
-									<span class="msgText">Hola que haces? que me platicas? yo estoy bien, jugando al fifa 2012 pero ya se acabo, no quieres ve</span>
-
-								</div>
-								
-
-								<div class="message">
-									<div class="msgHour">2012-12-31 04:47:49</div>
-									<span class="from">angel duran</span>
-									<span class="msgText">Entonces estaba sentado frente a un arbol que me dijo que lo siguiera pero no le quize hacer caso porque me ve&iacute;a raro</span>
-
-								</div>
-
-									<div class="message">
-									<div class="msgHour">2012-12-31 04:47:49</div>
-									<span class="from">Rafa Diaz</span>
-									<span class="msgText">Hola que haces? que me platicas? yo estoy bien, jugando al fifa 2012 pero ya se acabo, no quieres venir a jugar un rato? Hola que haces? que me platicas? yo estoy bien, jugando al fifa 2012 pero ya se acabo, no quieres venir a jugar un rato?</span>
-
-								</div>
-								<div class="message">
-									<div class="msgHour">2012-12-31 04:47:49</div>
-									<span class="from">angel duran</span>
-									<span class="msgText">xD, nada nada y t&uacute;?</span>
-
-								</div>
-
-								<div class="message">
-									<div class="msgHour">2012-12-31 04:47:49</div>
-									<span class="from">angel duran</span>
-									<span class="msgText">Hola que haces? que me platicas? yo estoy bien, jugando al fifa 2012 pero ya se acabo, no quieres ve</span>
-
-								</div>
-								
-
-								<div class="message">
-									<div class="msgHour">2012-12-31 04:47:49</div>
-									<span class="from">angel duran</span>
-									<span class="msgText">Entonces estaba sentado frente a un arbol que me dijo que lo siguiera pero no le quize hacer caso porque me ve&iacute;a raro</span>
-
-								</div>
-					</div><!--messages-->
-				</div><!--thread-->
 			</div><!--threadsScroller-->
 		</div><!--threadsContainer-->
 		<div id="containerNuevoMensaje">
