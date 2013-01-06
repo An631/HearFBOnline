@@ -17,28 +17,28 @@ require_once('utils.php');
 //This provides the facebook php sdk
 require_once('sdk/src/facebook.php');
 
-// //the facebook object is created
-// $facebook = new Facebook(array(
-//   'appId'  => AppInfo::appID(),//these credentials are taken from the server environment variables of heroku
-//   'secret' => AppInfo::appSecret(),
-//   'sharedSession' => true,
-//   'trustForwarded' => true,
-// ));
+//the facebook object is created
+$facebook = new Facebook(array(
+  'appId'  => AppInfo::appID(),//these credentials are taken from the server environment variables of heroku
+  'secret' => AppInfo::appSecret(),
+  'sharedSession' => true,
+  'trustForwarded' => true,
+));
 
-// //this looks to see if there is still a user active.
-// $user_id = $facebook->getUser();
-// if ($user_id) {
-//   try {
-//     // Fetch the viewer's basic information
-//     $basic = $facebook->api('/me');
-//   } catch (FacebookApiException $e) {
-//     // If the call fails we check if we still have a user. The user will be
-//     // cleared if the error is because of an invalid accesstoken
-//     if (!$facebook->getUser()) {
-//       header('Location: '. AppInfo::getUrl($_SERVER['REQUEST_URI']));
-//       exit();
-//     }
-//   }
+//this looks to see if there is still a user active.
+$user_id = $facebook->getUser();
+if ($user_id) {
+  try {
+    // Fetch the viewer's basic information
+    $basic = $facebook->api('/me');
+  } catch (FacebookApiException $e) {
+    // If the call fails we check if we still have a user. The user will be
+    // cleared if the error is because of an invalid accesstoken
+    if (!$facebook->getUser()) {
+      header('Location: '. AppInfo::getUrl($_SERVER['REQUEST_URI']));
+      exit();
+    }
+  }
 
 // //esta funcion de facebook->getLoginUrl() nos genera un URL que podemos mandar para pedir permisos para nuestra aplicacion
 //   //podemos poner todos los permisos que deseamos que nos pida.
