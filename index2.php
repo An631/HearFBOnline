@@ -25,20 +25,20 @@ $facebook = new Facebook(array(
   'trustForwarded' => true,
 ));
 
-//this looks to see if there is still a user active.
-$user_id = $facebook->getUser();
-if ($user_id) {
-  try {
-    // Fetch the viewer's basic information
-    $basic = $facebook->api('/me');
-  } catch (FacebookApiException $e) {
-    // If the call fails we check if we still have a user. The user will be
-    // cleared if the error is because of an invalid accesstoken
-    if (!$facebook->getUser()) {
-      header('Location: '. AppInfo::getUrl($_SERVER['REQUEST_URI']));
-      exit();
-    }
-  }
+// //this looks to see if there is still a user active.
+// $user_id = $facebook->getUser();
+// if ($user_id) {
+//   try {
+//     // Fetch the viewer's basic information
+//     $basic = $facebook->api('/me');
+//   } catch (FacebookApiException $e) {
+//     // If the call fails we check if we still have a user. The user will be
+//     // cleared if the error is because of an invalid accesstoken
+//     if (!$facebook->getUser()) {
+//       header('Location: '. AppInfo::getUrl($_SERVER['REQUEST_URI']));
+//       exit();
+//     }
+//   }
 
 // //esta funcion de facebook->getLoginUrl() nos genera un URL que podemos mandar para pedir permisos para nuestra aplicacion
 //   //podemos poner todos los permisos que deseamos que nos pida.
