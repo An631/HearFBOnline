@@ -4,6 +4,7 @@
 {
 	width:980px;
 	height:650px;
+	overflow-x:hidden;
 	margin:0px auto 0px auto;
 }
 
@@ -14,8 +15,27 @@
 	margin-top:0px;
 }
 
+#threadsContainer
+{
+	float:left;
+	width:980px;
+	overflow-x:scroll;
+	overflow-y:hidden;
+}
 
-#participantUser
+#threadsScroller
+{
+	float:left;
+}
+
+.thread
+{
+	width:980px;
+	float:left;
+}
+
+
+.participantUser
 {
 	height:100px;
 }
@@ -26,7 +46,8 @@
 	
 	height:500px;
 	overflow-y:scroll;
-	position:relative;
+	overflow-x:hidden;
+
 
 }
 

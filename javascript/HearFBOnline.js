@@ -40,13 +40,18 @@ $(document).ready(function(){
 
 //comandos de inicialización
 //*****************************************************************************
-$("#txtNuevoMensaje").focus();
+//le damos el tamaño necesario al contenedor de conversaciones
+var threadsTotal=$("#threadsScroller > .thread").size();//aqui obtenemos el numero de threads que existen para poder darle un tamaño a su contenedor
+$("#threadsScroller").css("width",((threadsTotal*980)+10)+"px");
+
 //aqui va el metodo que pone currentThread class a la conversación activa
-$("#wrapperMain .messages:first-child").addClass("currentThread");
+$(".thread").first().addClass("currentThread");
 $(".currentThread .message:last-child").addClass("selectedMsg");
+
+
 scrollMessages();
 
-
+$("#txtNuevoMensaje").focus();
 
 
 
@@ -99,13 +104,13 @@ scrollMessages();
     });
 
 
-
+//pressing the up arrow moves to the upper message from the current conversation
   $(document).bind('keydown','UP', function(e){
      
      		var currentMsg=$(".currentThread .selectedMsg");
 	     	var prevMsg=$(".currentThread .selectedMsg").prev();
 	     	
-	     	//revisa que el mesaje seleccionado no sea el ultimo en la lista
+	     	//revisa que el mesaje seleccionado no sea el primero en la lista
 	     	if(!$(currentMsg).is(':first-child') && (notyet===0))
 	     	{
 	     		//cambiamos el mensaje selecionado
@@ -120,15 +125,16 @@ scrollMessages();
           if(smIsReady)
 		     	//mandamos leer el mensaje al sintetizador de google
 		     	readMessage(from,msgText,msgHour);
-
+          //movemos el scroll bar hacia el mensaje seleccionado
 		     	scrollMessages();
+          //damos de alta la bandera notyet que nos permite realizar la proxima llamada para evitar que se repita la accion varias veces en una presionada.
 		     	notyet=1;
 		     	setTimeout('clearTimer()', 100);
 	     	}	
 
      });
 
-
+//pressing the down arrow which moves down 1 message in the current conversation, it will read that message too.
      $(document).bind('keydown','DOWN', function(e){
      
 
@@ -160,6 +166,8 @@ scrollMessages();
      });
 
 
+
+
       //if I click over a text it should change the selectedMsg class and say the message on it
     $(".message").click(function(e){
       
@@ -184,12 +192,45 @@ scrollMessages();
           scrollMessages();
           notyet=1;
           setTimeout('clearTimer()', 100);
+        } //if not yet==0
+    });//message click
+
+    //When pressing the left arrow the conversation will change to the previous one by changing the currentThread class from div.
+    $(document).bind('keyup','LEFT',function(e){
+
+        var currentMsg=$(".currentThread .selectedMsg");
+          var nextMsg=$(".currentThread .selectedMsg").next();
+        
+        //revisa que el mesaje seleccionado no sea el ultimo en la lista
+        if(!$(currentMsg).is(':last-child') && (notyet===0))
+        {
+          
+
+          currentMsg.attr("class","message");
+          nextMsg.attr("class","message selectedMsg");    
+          scrollMessages();
+
+        //obtenemos la info del msg para el sintetizador de voz
+          var from=$(".currentThread .selectedMsg .from").html();
+          var msgText=$(".currentThread .selectedMsg .msgText").html();
+          var msgHour=$(".currentThread .selectedMsg .msgHour").html();
+
+          if(smIsReady)
+          //mandamos leer el mensaje al sintetizador de google
+          readMessage(from,msgText,msgHour);
+
+          scrollMessages();
+          notyet=1;
+          setTimeout('clearTimer()', 100);
         } 
 
-      
-      
-     
-    });//message click
+    });//left arrow
+
+    //When pressing the right arrow the conversation will change to the next one by changing the currentThread class from div.
+    $(document).bind('keyup','RIGHT',function(e){
+
+
+    });//Right arrow
 
 
     //this method is used for the button to read

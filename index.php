@@ -300,7 +300,8 @@ $app_name = idx($app_info, 'name', '');
 <div id="wrapperMain">
 
 
-
+ <div id="threadsContainer">
+      <div id="threadsScroller">
    
 
     <?php 
@@ -322,11 +323,22 @@ $app_name = idx($app_info, 'name', '');
 
           $users=idx($toUsers,"data");
 
-          // foreach($users as $user)
-          // {
-          //   echo "Participants: ".idx($user,"name")."</br>";
-          // }
+         
      ?>     
+
+   
+        <div class="thread">
+          <div class="participants">
+          <?php
+          echo "Participants:";
+           foreach($users as $user)
+          {
+            echo idx($user,"name")." ";
+          }
+
+          ?>
+
+        </div><!--participants-->
           <div   class="messages grayborder_whitefont">
 
       <?php
@@ -358,15 +370,21 @@ $app_name = idx($app_info, 'name', '');
          
 
 
-   <?php 
+       <?php 
 
-            }//foreach msgs
-      
-    ?> 
-    </div><!--messages-->
-    <?php
+             }//foreach msgs
+          
+        ?> 
+          </div><!--messages-->
+        </div><!--thread-->
+        <?php
 
         }//foreach threads
+
+        ?>
+     </div><!--threadsScroller-->
+  </div><!--threadsContainer-->
+        <?php
       }//if there is a user_id
     ?>
 
