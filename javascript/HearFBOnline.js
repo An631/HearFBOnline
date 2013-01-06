@@ -48,6 +48,7 @@ $("#threadsScroller").css("width",((threadsTotal*980)+10)+"px");
 $("#threadsScroller .thread").first().addClass("currentThread");
 $(".currentThread .message:last-child").addClass("selectedMsg");
 
+
 scrollConversations();
 scrollMessages();
 
@@ -159,7 +160,7 @@ $("#txtNuevoMensaje").focus();
 		     	//mandamos leer el mensaje al sintetizador de google
 		     	readMessage(from,msgText,msgHour);
 
-		     	scrollMessages();
+		     
 			  	notyet=1;
 		     	setTimeout('clearTimer()', 100);
 	     	}	
@@ -189,7 +190,7 @@ $("#txtNuevoMensaje").focus();
           //mandamos leer el mensaje al sintetizador de google
           readMessage(from,msgText,msgHour);
 
-          scrollMessages();
+          
           notyet=1;
           setTimeout('clearTimer()', 100);
         } //if not yet==0
@@ -217,8 +218,13 @@ $("#txtNuevoMensaje").focus();
           if(smIsReady)
           //mandamos leer el mensaje al sintetizador de google
           readParticipants(participants);
-
+          //recorre las conversaciones hasta  hasta poner en pantalla a la seleccionada
           scrollConversations();
+          if($(".currentThread .selectedMsg").length===0)
+          //selecciona el ultimo mensaje de la conversacion seleccionada
+          $(".currentThread .message:last-child").addClass("selectedMsg");
+          //pone el mensaje seleccionado en pantalla
+          scrollMessages();
           notyet=1;
           setTimeout('clearTimer()', 100);
         } 
@@ -248,7 +254,14 @@ $("#txtNuevoMensaje").focus();
           //mandamos leer el mensaje al sintetizador de google
           readParticipants(participants);
 
+          //recorre las conversaciones hasta poner en pantalla a la seleccionada
           scrollConversations();
+         
+           if($(".currentThread .selectedMsg").length===0)
+          //selecciona el ultimo mensaje de la conversacion seleccionada
+          $(".currentThread .message:last-child").addClass("selectedMsg");
+          //pone el mensaje seleccionado en pantalla
+          scrollMessages();
           notyet=1;
           setTimeout('clearTimer()', 100);
         } 
@@ -289,14 +302,15 @@ function scrollMessages()
 {
 
 	var container=$(".currentThread .messages");
-	var scrollTo=$(".selectedMsg");
-
+	var scrollTo=$(".currentThread .messages .selectedMsg");
+  var scrollToPosition=scrollTo.offset().top - container.offset().top + container.scrollTop();
+// alert("container: "+container.offset().top+" scrollTo: "+scrollTo.offset().top+" scrollTop: "+scrollToPosition);
 	container.animate({
 		
 		
-	    scrollTop: (scrollTo.offset().top - container.offset().top + container.scrollTop())
+	    scrollTop: (scrollToPosition)
 
-	},{duration:'10'});
+	});
 }//scroll messages
 
 function scrollConversations()
@@ -314,9 +328,9 @@ function scrollConversations()
 function readMessage(from, message)
 {
 
-  
+ 
   message=modernDictionaryTranslate(message);
-
+ 
     //se debe de separar el texto en pedazos de 100 caracteres para que google los acepte.
 
     // if (message.length>50) 
@@ -446,6 +460,9 @@ function modernDictionaryTranslate(texto)
     texto=texto.replace(/\bk\b/gi,"que");
     texto=texto.replace(/\bgad\b/gi,"Gracias a dios");
     texto=texto.replace(/\bntc\b/gi,"No te creas");
+    texto=texto.replace(/\bbn\b/gi,"bien");
+    texto=texto.replace(/\btmb\b/gi,"tambien");
+    texto=texto.replace(/\bhm*\b/gi,"no me convences");
   }
   else if(language==1)
   {

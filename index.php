@@ -359,9 +359,10 @@ $app_name = idx($app_info, 'name', '');
             ?>
          
               <div class="message">
-               
-                <div class="msgHour"><?php echo $date." ".$time?></div>
+               <div>
                 <span class="from"><?php echo idx($msgFrom,"name");?> </span>
+                 <span class="msgHour"><?php echo $date." ".$time?></span>
+              </div>
                 <span class="msgText"><?php echo idx($msg,"message")?> </span>
 
               </div>

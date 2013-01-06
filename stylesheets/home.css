@@ -35,9 +35,10 @@
 }
 
 
-.participantUser
+.participantUsers
 {
-	height:100px;
+	font-size:30px;
+	font-family:"lucida grande, Segoe UI, Arial";
 }
 
 
@@ -64,6 +65,15 @@
 	font-size:32px;
 }
 
+.message .from
+{
+	text-decoration:underline;
+}
+
+.selectedMsg .msgHour
+{
+	font-size:26px;
+}
 
 /************************************************color classes*******************************************************/
 
@@ -78,3 +88,5 @@
 	background-color: black;
 	color:white;
 }
+
+
