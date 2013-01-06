@@ -25,8 +25,8 @@ $facebook = new Facebook(array(
   'trustForwarded' => true,
 ));
 
-// //this looks to see if there is still a user active.
-// $user_id = $facebook->getUser();
+//this looks to see if there is still a user active.
+$user_id = $facebook->getUser();
 // if ($user_id) {
 //   try {
 //     // Fetch the viewer's basic information
