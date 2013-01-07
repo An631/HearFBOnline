@@ -183,7 +183,29 @@ if ($user_id)
 			<div id="threadsScroller">
 					
 
-				
+				<?php foreach($threads as $thread)
+				{
+					
+					$toUsers=idx($thread,"to");
+					$participants=idx($toUsers,"data");
+
+					$idThread=idx($thread,"id");
+
+					$msgsData=idx($thread,"comments");
+					$msgs=idx($msgsData,"data");
+
+					
+					
+
+				?>
+					<div class="thread">
+						
+
+					</div><!--thread-->
+				<?php 
+				}//threads foreach
+				?>
+
 			</div><!--threadsScroller-->
 		</div><!--threadsContainer-->
 		<div id="containerNuevoMensaje">
