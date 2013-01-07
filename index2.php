@@ -187,11 +187,11 @@ if ($user_id)
 					foreach($threads as $thread):
 				
 					
-					$toUsers=idx($thread,"to");
-					$participants=idx($toUsers,"data");
+					// $toUsers=idx($thread,"to");
+					// $participants=idx($toUsers,"data");
 
-					$idThread=idx($thread,"id");
-					 $msgsData=idx($thread,"comments");
+					// $idThread=idx($thread,"id");
+					//  $msgsData=idx($thread,"comments");
 					 $msgs=idx($msgsData,"data");
 
 				?>
