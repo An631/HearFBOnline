@@ -1,5 +1,6 @@
 <?php
-
+// Report all PHP errors
+error_reporting(-1);
 // Provides access to app specific values such as your app id and app secret.
 // Defined in 'AppInfo.php'
 require_once('AppInfo.php');
@@ -191,7 +192,7 @@ if ($user_id)
 					// $participants=idx($toUsers,"data");
 
 					// $idThread=idx($thread,"id");
-					//  $msgsData=idx($thread,"comments");
+					 $msgsData=idx($thread,"comments");
 					 $msgs=idx($msgsData,"data");
 
 				?>
@@ -204,7 +205,7 @@ if ($user_id)
 						            echo idx($user,"name")." ";
 						          }
 					          ?>
-
+					          	
 						</div><!--participantUsers-->
 
 					</div><!--thread-->
