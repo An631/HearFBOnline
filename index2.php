@@ -183,16 +183,16 @@ if ($user_id)
 			<div id="threadsScroller">
 					
 
-				<?php foreach($threads as $thread)
-				{
+				<?php foreach($threads as $thread):
+				
 					
-					$toUsers=idx($thread,"to");
-					$participants=idx($toUsers,"data");
+					// $toUsers=idx($thread,"to");
+					// $participants=idx($toUsers,"data");
 
-					$idThread=idx($thread,"id");
+					// $idThread=idx($thread,"id");
 
-					$msgsData=idx($thread,"comments");
-					$msgs=idx($msgsData,"data");
+					// $msgsData=idx($thread,"comments");
+					// $msgs=idx($msgsData,"data");
 
 
 					
@@ -203,7 +203,7 @@ if ($user_id)
 
 					</div><!--thread-->
 				<?php 
-				}//threads foreach
+				endforeach://threads foreach
 				?>
 
 			</div><!--threadsScroller-->
