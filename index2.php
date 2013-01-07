@@ -191,8 +191,7 @@ if ($user_id)
 					$participants=idx($toUsers,"data");
 
 					$idThread=idx($thread,"id");
-
-					// $msgsData=idx($thread,"comments");
+					 $msgsData=idx($thread,"comments");
 					// $msgs=idx($msgsData,"data");
 
 				?>
