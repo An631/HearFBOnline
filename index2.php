@@ -196,7 +196,16 @@ if ($user_id)
 
 				?>
 					<div class="thread">
-						
+						<div class="participantUsers">
+
+							 <?php
+						          foreach($participants as $user)
+						          {
+						            echo idx($user,"name")." ";
+						          }
+					          ?>
+
+						</div><!--participantUsers-->
 
 					</div><!--thread-->
 
