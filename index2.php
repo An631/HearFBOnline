@@ -105,7 +105,8 @@ if ($user_id)
 		<script src="javascript/jquery.js"></script>
 		<script src="javascript/hotkeys.js"></script>
 		<script src="javascript/soundmanager2.js"></script>
-		
+		<script src="javascript/HearFBOnline.js"></script>
+
 		<link rel="stylesheet" href="stylesheets/home.css" />
 
 
@@ -233,7 +234,6 @@ if ($user_id)
 
 
 
-<script src="javascript/HearFBOnline.js" type="text/javascript"></script>
 
  <script type="text/javascript">
       window.fbAsyncInit = function() {
