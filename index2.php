@@ -197,6 +197,7 @@ if ($user_id)
 
 				?>
 					<div class="thread">
+						
 						<div class="participantUsers">
 
 							 <?php
@@ -207,6 +208,41 @@ if ($user_id)
 					          ?>
 
 						</div><!--participantUsers-->
+
+						<div   class="grayborder_whitefont messages">
+						<!-- <div id="vScrollMessages"> -->
+							
+							<?php foreach($msgs as $msg)
+					        	{
+					        	//aqui se recaba la información de cada mensaje y se envía 
+					            $msgFrom=idx($msg,"from");
+
+					            $created_time= idx($msg,"created_time");
+					            
+					            //parseamos el created_time para obtener el tiempo y la fecha del mensaje
+					            $dateArray=explode("T",$created_time);  
+
+					            $date=$dateArray[0];
+					            $timeArray=explode("+",$dateArray[1]);
+
+					            $time =$timeArray[0];
+					        ?>
+					         
+								<div class="message">
+									<div>
+										<span class="from"><?php echo idx($msgFrom,"name");?></span>
+										<span class="msgHour"><?php echo $date." ".$time?></span>
+									</div>
+									<span class="msgText"><?php echo idx($msg,"message")?></span>
+
+								</div><!--message-->
+							<?php 
+
+							    }//foreach msgs
+							  
+							?> 
+
+						</div><!--messages-->
 
 					</div><!--thread-->
 
