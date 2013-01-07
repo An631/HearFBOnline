@@ -192,7 +192,7 @@ if ($user_id)
 
 					$idThread=idx($thread,"id");
 					 $msgsData=idx($thread,"comments");
-					// $msgs=idx($msgsData,"data");
+					 $msgs=idx($msgsData,"data");
 
 				?>
 					<div class="thread">
