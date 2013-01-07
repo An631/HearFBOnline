@@ -330,11 +330,9 @@ function readMessage(from, message)
 
  
   message=modernDictionaryTranslate(message);
- 
+  arrayTextToSpeak=new Array();//reiniciamos el array que contiene lo que se quiere decir para que no se repitan los mensajes
     //se debe de separar el texto en pedazos de 100 caracteres para que google los acepte.
 
-    // if (message.length>50) 
-    // {
       var piecesCounter=0;
       for(i=0;i<message.length;(i=i+50))
       {
@@ -353,12 +351,7 @@ function readMessage(from, message)
 
       readArrayOfSounds(0,arrayTextToSpeak);
 
-    // }
-    // else
-    // {
-    //   var texto=from+" dijo: "+message;
-    //   read(texto);
-    // }//else if message.length>100
+    
 
 
 }//readMessage
@@ -388,7 +381,7 @@ function readArrayOfSounds(indice,arraySounds)
   // alert(arrayTextToSpeak[indice]+" indice: "+indice);
   if(indice<arraySounds.length)
   {
-     stopAllSounds();//detenemos todos los 
+     stopAllSounds();//detenemos todos los sonidos
     soundManager.createSound({
         id:'a'+indice,
         url:arraySounds[indice]
@@ -397,7 +390,7 @@ function readArrayOfSounds(indice,arraySounds)
         soundManager.play('a'+indice,{
         multiShotEvents:true,
         onfinish:function(){
-          soundManager.destroySound('a'+indice);
+          // soundManager.destroySound('a'+indice);
           stopAllSounds();
          if((indice+1)<arraySounds.length)
           readArrayOfSounds(indice+1,arraySounds);
@@ -450,7 +443,7 @@ function stopAllSounds()
 
   for(i = 0; i < 20 ;i=i+1)
   {
-    soundManager.destroySound('a'+i);//nos deshacemos del sonido creado para que no se repita en el proximo mensaje
+    soundManager.destroySound("a"+i);//nos deshacemos del sonido creado para que no se repita en el proximo mensaje
   }
   speak.pause();
 }
