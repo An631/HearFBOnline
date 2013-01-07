@@ -69,7 +69,7 @@ if ($user_id)
 		  //la funcion /me/feed/, 'post', array('message'=>mensaje) permite escribir sobre el muro de la persona
 		      // $post_id = $facebook->api('/me/feed', 'post', array('message'=>'Hello World!'));
 		      
-		      $messages = $facebook->api('/me/inbox?limit=4');//we obtain the inbox of the messages
+		      $messages = $facebook->api('/me/inbox?limit=5');//we obtain the inbox of the messages
 		 		
 		      //we obtain all the threads from the $messages array
 		      $threads=idx($messages,"data");

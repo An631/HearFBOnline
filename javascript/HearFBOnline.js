@@ -577,6 +577,11 @@ function html5_audio(){
 //this function is so sweet! because it translates young slang words like pz to pues and lmfao to laughing my f*****g a*s of. =D
 function modernDictionaryTranslate(texto)
 { 
+
+var smiley = /\:\)/gi;
+var happy = /\:D/gi;
+var sad = /\:\(/gi;
+var reallyHappy = /\=D/gi;
   if(language==0)
   {
     texto=texto.replace(/\bpz\b/gi,"pues");
@@ -586,16 +591,27 @@ function modernDictionaryTranslate(texto)
     texto=texto.replace(/\bbn\b/gi,"bien");
     texto=texto.replace(/\btmb\b/gi,"tambien");
     texto=texto.replace(/\bhm*\b/gi,"no me convences");
+    texto=texto.replace(/\bvd\b/gi,"verdad");
+    texto=texto.replace(/\b[ha,he]+\b/gi," jajaja");
+    texto=texto.replace(smiley,"estoy feliz");
+    texto=texto.replace(happy,"estoy sonriendo,");
+    texto=texto.replace(sad,"estoy triste,");
+    texto=texto.replace(reallyHappy,"estoy muy feliz,");
+    
   }
   else if(language==1)
   {
-    texto=texto.replace(/\blmfao\b/gi,"laughing my fucking ass of");
+    texto=texto.replace(/\blmfao\b/gi,"laughing my fucking ass off");
     texto=texto.replace(/\bk\b/gi,"que");
     texto=texto.replace(/\bya\b/gi,"you");
+    texto=texto.replace(smiley,"I feel happy");
+    texto=texto.replace(happy,"I am smiling,");
+    texto=texto.replace(sad,"I feel sad,");
+    texto=texto.replace(reallyHappy,"I feel really happy,");
   }
   texto=texto.replace(/\bxD\b/gi,"me muero de risa");
   texto=texto.replace(/\b=D\b/gi,"estoy felíz");
-    texto=texto.replace(/\b:D\b/gi,"sonrío");
+  texto=texto.replace(/\b:D\b/gi,"sonrío");
 
 
   return texto;
