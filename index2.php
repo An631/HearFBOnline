@@ -69,7 +69,7 @@ if ($user_id)
 		  //la funcion /me/feed/, 'post', array('message'=>mensaje) permite escribir sobre el muro de la persona
 		      // $post_id = $facebook->api('/me/feed', 'post', array('message'=>'Hello World!'));
 		      
-		      $messages = $facebook->api('/me/inbox?limit=2');//we obtain the inbox of the messages
+		      $messages = $facebook->api('/me/inbox?limit=4');//we obtain the inbox of the messages
 		 		
 		      //we obtain all the threads from the $messages array
 		      $threads=idx($messages,"data");
@@ -99,10 +99,15 @@ if ($user_id)
 
 
 
-
-<html>
+<!DOCTYPE html>
+<html xmlns:fb="http://ogp.me/ns/fb#" lang="en">
 	<head>
+		
+		<meta charset="utf-8" />
+    	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes" />
+
 		<title><?php echo $app_name;?></title>
+
 		<script src="javascript/jquery.js"></script>
 		<script src="javascript/hotkeys.js"></script>
 		<script src="javascript/soundmanager2.js"></script>
@@ -197,7 +202,7 @@ if ($user_id)
 
 				?>
 					<div class="thread">
-						
+
 						<div class="participantUsers">
 
 							 <?php
