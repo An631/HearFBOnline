@@ -177,7 +177,7 @@ if ($user_id)
 
 
 
-
+<?php echo var_dump($threads[23]);?>
 		
 		<div id="threadsContainer">
 			<div id="threadsScroller">
@@ -194,7 +194,7 @@ if ($user_id)
 					$msgsData=idx($thread,"comments");
 					$msgs=idx($msgsData,"data");
 
-					
+
 					
 
 				?>
