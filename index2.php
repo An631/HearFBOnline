@@ -239,7 +239,7 @@ if ($user_id)
       window.fbAsyncInit = function() {
         FB.init({
           appId      : '<?php echo AppInfo::appID(); ?>', // App ID
-          channelUrl : '//<?php echo $_SERVER["HTTP_HOST"]; ?>/channel.html', // Channel File
+         // channelUrl : '//<?php echo $_SERVER["HTTP_HOST"]; ?>/channel.html', // Channel File
           status     : true, // check login status
           cookie     : true, // enable cookies to allow the server to access the session
           xfbml      : true // parse XFBML
@@ -256,7 +256,7 @@ if ($user_id)
           window.location = window.location;
         });
 
-        FB.Canvas.setAutoGrow();
+        // FB.Canvas.setAutoGrow();
       };
 
       // Load the SDK Asynchronously
