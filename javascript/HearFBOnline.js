@@ -111,62 +111,157 @@ $("#txtNuevoMensaje").focus();
      		var currentMsg=$(".currentThread .selectedMsg");
 	     	var prevMsg=$(".currentThread .selectedMsg").prev();
 	     	
-	     	//revisa que el mesaje seleccionado no sea el primero en la lista
-	     	if(!$(currentMsg).is(':first-child') && (notyet===0))
+	     //not yet evita que hotkeys mande llamar varias veces a esta funcion usando un timer
+	     	if(notyet===0)
 	     	{
-	     		//cambiamos el mensaje selecionado
-		     	currentMsg.attr("class","message");
-		     	prevMsg.attr("class","message selectedMsg"); 		
-		     	
-		     	//obtenemos la info del msg para el sintetizador de voz
-		     	var from=$(".currentThread .selectedMsg .from").html();
-		     	var msgText=$(".currentThread .selectedMsg .msgText").html();
-		     	var msgHour=$(".currentThread .selectedMsg .msgHour").html();
+          //revisa que el mesaje seleccionado no sea el primero en la lista
+          if(!$(currentMsg).is(':first-child'))
+          {
+  	     		//cambiamos el mensaje selecionado
+  		     	currentMsg.attr("class","message");
+  		     	prevMsg.attr("class","message selectedMsg"); 		
+  		     	
+  		     	//obtenemos la info del msg para el sintetizador de voz
+  		     	var from=$(".currentThread .selectedMsg .from").html();
+  		     	var msgText=$(".currentThread .selectedMsg .msgText").html();
+  		     	var msgHour=$(".currentThread .selectedMsg .msgHour").html();
 
-          if(smIsReady)
-		     	//mandamos leer el mensaje al sintetizador de google
-		     	readMessage(from,msgText,msgHour);
-          //movemos el scroll bar hacia el mensaje seleccionado
-		     	scrollMessages();
-          //damos de alta la bandera notyet que nos permite realizar la proxima llamada para evitar que se repita la accion varias veces en una presionada.
-		     	notyet=1;
-		     	setTimeout('clearTimer()', 100);
-	     	}	
+            if(smIsReady)
+  		     	//mandamos leer el mensaje al sintetizador de google
+  		     	readMessage(from,msgText,msgHour);
+            //movemos el scroll bar hacia el mensaje seleccionado
+  		     	scrollMessages();
+            //damos de alta la bandera notyet que nos permite realizar la proxima llamada para evitar que se repita la accion varias veces en una presionada.
+  		     	notyet=1;
+  		     	setTimeout('clearTimer()', 100);
+          }//first-child
+          else//si ya estamos en el primer mensaje
+          {
+            //obtenemos la info del msg para el sintetizador de voz
+            var from=$(".currentThread .selectedMsg .from").html();
+            var msgText=$(".currentThread .selectedMsg .msgText").html();
+            var msgHour=$(".currentThread .selectedMsg .msgHour").html();
+
+            if(smIsReady)
+            //mandamos leer el mensaje al sintetizador de google
+            readMessage(from,msgText,msgHour);
+             //damos de alta la bandera notyet que nos permite realizar la proxima llamada para evitar que se repita la accion varias veces en una presionada.
+            notyet=1;
+            setTimeout('clearTimer()', 100);
+          }
+	     	}//notyet
 
      });
 
-//pressing the down arrow which moves down 1 message in the current conversation, it will read that message too.
+
+//pressing the Ctrl+up arrow moves to the first message from the current conversation
+  $(document).bind('keydown','Ctrl+UP', function(e){
+     
+        var currentMsg=$(".currentThread .selectedMsg");
+        var firstMsg=$(".currentThread .message:first-child");
+        
+        //revisa que el mesaje seleccionado no sea el primero en la lista
+        if(notyet===0)
+        {
+          //cambiamos el mensaje selecionado
+          currentMsg.attr("class","message");
+          firstMsg.attr("class","message selectedMsg");    
+          
+          //obtenemos la info del msg para el sintetizador de voz
+          var from=$(".currentThread .selectedMsg .from").html();
+          var msgText=$(".currentThread .selectedMsg .msgText").html();
+          var msgHour=$(".currentThread .selectedMsg .msgHour").html();
+
+          if(smIsReady)
+          //mandamos leer el mensaje al sintetizador de google
+          readMessage(from,msgText,msgHour);
+          //movemos el scroll bar hacia el mensaje seleccionado
+          scrollMessages();
+          //damos de alta la bandera notyet que nos permite realizar la proxima llamada para evitar que se repita la accion varias veces en una presionada.
+          notyet=1;
+          setTimeout('clearTimer()', 100);
+        } 
+
+     });
+
+//pressing the down arrow moves down 1 message in the current conversation, it will read that message too.
      $(document).bind('keydown','DOWN', function(e){
      
 
      		var currentMsg=$(".currentThread .selectedMsg");
           var nextMsg=$(".currentThread .selectedMsg").next();
 	     	
-	     	//revisa que el mesaje seleccionado no sea el ultimo en la lista
-	     	if(!$(currentMsg).is(':last-child') && (notyet===0))
+	     	//revisa que el mensaje seleccionado no sea el ultimo en la lista
+	     	if(notyet===0)
 	     	{
-          
+          if(!$(currentMsg).is(':last-child'))
+          {
 
-		     	currentMsg.attr("class","message");
-		     	nextMsg.attr("class","message selectedMsg"); 		
-		     	scrollMessages();
+  		     	currentMsg.attr("class","message");
+  		     	nextMsg.attr("class","message selectedMsg"); 		
+  		     	scrollMessages();
 
-				//obtenemos la info del msg para el sintetizador de voz
-		     	var from=$(".currentThread .selectedMsg .from").html();
-		     	var msgText=$(".currentThread .selectedMsg .msgText").html();
-		     	var msgHour=$(".currentThread .selectedMsg .msgHour").html();
+  				//obtenemos la info del msg para el sintetizador de voz
+  		     	var from=$(".currentThread .selectedMsg .from").html();
+  		     	var msgText=$(".currentThread .selectedMsg .msgText").html();
+  		     	var msgHour=$(".currentThread .selectedMsg .msgHour").html();
 
-          if(smIsReady)
-		     	//mandamos leer el mensaje al sintetizador de google
-		     	readMessage(from,msgText,msgHour);
+            if(smIsReady)
+  		     	//mandamos leer el mensaje al sintetizador de google
+  		     	readMessage(from,msgText,msgHour);
 
-		     
-			  	notyet=1;
-		     	setTimeout('clearTimer()', 100);
-	     	}	
+  		     
+  			  	notyet=1;
+  		     	setTimeout('clearTimer()', 100);
+          }//last-child
+          else
+          {
+            //obtenemos la info del msg para el sintetizador de voz
+            var from=$(".currentThread .selectedMsg .from").html();
+            var msgText=$(".currentThread .selectedMsg .msgText").html();
+            var msgHour=$(".currentThread .selectedMsg .msgHour").html();
+
+            if(smIsReady)
+            //mandamos leer el mensaje al sintetizador de google
+            readMessage(from,msgText,msgHour);
+
+           
+            notyet=1;
+            setTimeout('clearTimer()', 100);
+          }
+	     	}//notyet
      });
 
+//pressing the Ctrl+down arrow moves down to the last message in the current conversation, it will read that message too.
+     $(document).bind('keydown','Ctrl+DOWN', function(e){
+     
 
+        var currentMsg=$(".currentThread .selectedMsg");
+          var lastMsg=$(".currentThread .message:last-child");
+        
+        //revisa que el mensaje seleccionado no sea el ultimo en la lista
+        if(notyet===0)
+        {
+          
+
+          currentMsg.attr("class","message");
+          lastMsg.attr("class","message selectedMsg");    
+          scrollMessages();
+
+        //obtenemos la info del msg para el sintetizador de voz
+          var from=$(".currentThread .selectedMsg .from").html();
+          var msgText=$(".currentThread .selectedMsg .msgText").html();
+          var msgHour=$(".currentThread .selectedMsg .msgHour").html();
+
+          if(smIsReady)
+          //mandamos leer el mensaje al sintetizador de google
+          readMessage(from,msgText,msgHour);
+
+         
+          notyet=1;
+          setTimeout('clearTimer()', 100);
+        } 
+     });
 
 
       //if I click over a text it should change the selectedMsg class and say the message on it
