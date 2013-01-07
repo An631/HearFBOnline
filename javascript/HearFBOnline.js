@@ -328,26 +328,50 @@ function scrollConversations()
 function readMessage(from, message)
 {
 
- 
+  var fromSize = from.length;//we obtain the lenght of the person that wrote the msg so we might count the total sent to google tts web service
+
   message=modernDictionaryTranslate(message);
   arrayTextToSpeak=new Array();//reiniciamos el array que contiene lo que se quiere decir para que no se repitan los mensajes
-    //se debe de separar el texto en pedazos de 100 caracteres para que google los acepte.
+  var pieceOfMsg="";
 
-      var piecesCounter=0;
-      for(i=0;i<message.length;(i=i+50))
+    if(language===0)
+       pieceOfMsg=from+" dijo ";
+      else if(language===1)
+       pieceOfMsg=from+" said ";
+
+var arrayOfWords=message.split(" ");
+
+var piecesCounter=0;
+ for(i=0;i<arrayOfWords.length; i++)
+  {
+ 
+      pieceOfMsg=pieceOfMsg+" "+arrayOfWords[i];
+      
+      if(((i+1)>=arrayOfWords.length)||(pieceOfMsg+" "+arrayOfWords[i+1]).length>=100)
       {
-        var pieceOfMsg=message.substring(i,i+50);
-        if(i===0)
-        {
-          if(language===0)
-          pieceOfMsg=from+" dijo "+pieceOfMsg;
-          else if(language===1)
-            pieceOfMsg=from+" said "+pieceOfMsg;
-        }
+      
         arrayTextToSpeak[piecesCounter]="http://translate.google.com/translate_tts?ie=UTF-8&q="+encodeURI(pieceOfMsg)+"&tl="+languages[language]+"&total=1&idx=0prev=input";
+        pieceOfMsg="";
         piecesCounter=piecesCounter+1;
-        // alert(arrayTextToSpeak[piecesCounter]);
       }
+  }
+
+    //se debe de separar el texto en pedazos de 100 caracteres para que google los acepte.
+      // var piecesCounter=0;
+      // for(i=0;i<message.length;(i=i+50))
+      // {
+      //   var pieceOfMsg=message.substring(i,i+50);
+      //   if(i===0)//la primer parte del mensaje debe de decir el nombre de quien dijo ese mensaje
+      //   {
+      //     if(language===0)
+      //     pieceOfMsg=from+" dijo "+pieceOfMsg;
+      //     else if(language===1)
+      //       pieceOfMsg=from+" said "+pieceOfMsg;
+      //   }
+      //   arrayTextToSpeak[piecesCounter]="http://translate.google.com/translate_tts?ie=UTF-8&q="+encodeURI(pieceOfMsg)+"&tl="+languages[language]+"&total=1&idx=0prev=input";
+      //   piecesCounter=piecesCounter+1;
+      //   // alert(arrayTextToSpeak[piecesCounter]);
+      // }
 
       readArrayOfSounds(0,arrayTextToSpeak);
 
