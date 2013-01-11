@@ -199,7 +199,7 @@ if ($user_id)
 					$idThread=idx($thread,"id");
 					 $msgsData=idx($thread,"comments");
 					 $msgs=idx($msgsData,"data");
-					 echo var_dump(msgs);
+					 
 				?>
 					<div class="thread">
 
