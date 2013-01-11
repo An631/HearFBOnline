@@ -592,7 +592,7 @@ var reallyHappy = /\=D/gi;
     texto=texto.replace(/\btmb\b/gi,"tambien");
     texto=texto.replace(/\bhm*\b/gi,"no me convences");
     texto=texto.replace(/\bvd\b/gi,"verdad");
-    texto=texto.replace(/\b[ha,he]+\b/gi,"jajaja");
+    // texto=texto.replace(/\b[ha,he]+\b/gi,"jajaja"); this one is failing when it finds an "a" alone, it replaces the "a" with the "jajaja"
     texto=texto.replace(smiley,"estoy feliz");
     texto=texto.replace(happy,"estoy sonriendo,");
     texto=texto.replace(sad,"estoy triste,");
